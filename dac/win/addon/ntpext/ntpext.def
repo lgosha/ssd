@@ -1,0 +1,7 @@
+LIBRARY MyAgent
+
+DESCRIPTION 'My Sample SNMP Extension Agent'
+
+EXPORTS
+  SnmpExtensionInit
+  SnmpExtensionQuery

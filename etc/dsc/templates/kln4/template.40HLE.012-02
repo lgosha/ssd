@@ -1,0 +1,141 @@
+
+<!-- %KKS %CODE -->
+	<!-- ÁÌ %CODE301 -->
+		%TEMPL.301.1
+	<!-- ÊÎÌÌÓÒÀÒÎÐ 1 %CODE411 -->
+		%TEMPL.411
+	<!-- ÊÎÌÌÓÒÀÒÎÐ 2 %CODE412 -->
+		%TEMPL.412
+	<!-- ÊÎÌÌÓÒÀÒÎÐ 3 %CODE413 -->
+		%TEMPL.413
+	<!-- ÊÎÌÌÓÒÀÒÎÐ 4 %CODE414 -->
+		%TEMPL.414
+	<!-- WARNING %KKS (%CODE) -->
+		<common id="%CODE000901" vtype="short">
+		    <!-- ÁÌ -->
+			<ref id="%CODE301003"/>
+			<ref id="%CODE301004"/>
+			<ref id="%CODE301504"/>
+                    <!-- ÊÎÌÌÓÒÀÒÎÐ 1 -->
+		    	%WARN_411
+                    <!-- ÊÎÌÌÓÒÀÒÎÐ 2 -->
+		    	%WARN_412
+                    <!-- ÊÎÌÌÓÒÀÒÎÐ 3 -->
+		    	%WARN_413
+                    <!-- ÊÎÌÌÓÒÀÒÎÐ 4 -->
+		    	%WARN_414
+        	</common>
+	<!-- ALARM %KKS (%CODE) -->
+		<common id="%CODE000902" vtype="short">
+		    <!-- ÁÌ -->
+			<ref id="%CODE301001"/>
+			<ref id="%CODE301505"/>
+                    <!-- ÊÎÌÌÓÒÀÒÎÐ 1 -->
+			<ref id="%CODE411001"/>
+		    	%ALARM_411
+                    <!-- ÊÎÌÌÓÒÀÒÎÐ 2 -->
+			<ref id="%CODE412001"/>
+		    	%ALARM_412
+                    <!-- ÊÎÌÌÓÒÀÒÎÐ 3 -->
+			<ref id="%CODE413001"/>
+		    	%ALARM_413
+                    <!-- ÊÎÌÌÓÒÀÒÎÐ 4 -->
+			<ref id="%CODE414001"/>
+		    	%ALARM_414
+        	</common>
+	<!-- BLINK %KKS (%CODE) -->
+		<indicator id="%CODE000801" vtype="short">
+		    <!-- ÁÌ -->
+			<ref id="%CODE301003"/>
+			<ref id="%CODE301004"/>
+			<ref id="%CODE301504"/>
+			<ref id="%CODE301505"/>
+		    <!-- ÊÎÌÌÓÒÀÒÎÐ 1 -->
+			<ref id="%CODE411002"/>
+			<ref id="%CODE411003"/>
+			<ref id="%CODE411004"/>
+			<ref id="%CODE411005"/>
+			<ref id="%CODE411006"/>
+			<ref id="%CODE411007"/>
+			<ref id="%CODE411008"/>
+			<ref id="%CODE411009"/>
+			<ref id="%CODE411010"/>
+			<ref id="%CODE411011"/>
+			<ref id="%CODE411012"/>
+			<ref id="%CODE411013"/>
+			<ref id="%CODE411014"/>
+			<ref id="%CODE411015"/>
+			<ref id="%CODE411066"%VAL/>
+			<ref id="%CODE411067"%VAL/>
+			<ref id="%CODE411068"%VAL/>
+			<ref id="%CODE411069"%VAL/>
+			<ref id="%CODE411070"%VAL/>
+			<ref id="%CODE411071"%VAL/>
+			<ref id="%CODE411072"%VAL/>
+			<ref id="%CODE411073"%VAL/>
+			<ref id="%CODE411074"%VAL/>
+			<ref id="%CODE411075"%VAL/>
+			<ref id="%CODE411076"%VAL/>
+			<ref id="%CODE411077"%VAL/>
+			<ref id="%CODE411078"%VAL/>
+			<ref id="%CODE411079"%VAL/>
+		    <!-- ÊÎÌÌÓÒÀÒÎÐ 2 -->
+			<ref id="%CODE412002"/>
+			<ref id="%CODE412003"/>
+			<ref id="%CODE412004"/>
+			<ref id="%CODE412005"/>
+			<ref id="%CODE412006"/>
+			<ref id="%CODE412007"/>
+			<ref id="%CODE412008"/>
+			<ref id="%CODE412009"/>
+			<ref id="%CODE412066"%VAL/>
+			<ref id="%CODE412067"%VAL/>
+			<ref id="%CODE412068"%VAL/>
+			<ref id="%CODE412069"%VAL/>
+			<ref id="%CODE412070"%VAL/>
+			<ref id="%CODE412071"%VAL/>
+			<ref id="%CODE412072"%VAL/>
+			<ref id="%CODE412073"%VAL/>
+		    <!-- ÊÎÌÌÓÒÀÒÎÐ 3 -->
+			<ref id="%CODE413002"/>
+			<ref id="%CODE413003"/>
+			<ref id="%CODE413004"/>
+			<ref id="%CODE413005"/>
+			<ref id="%CODE413006"/>
+			<ref id="%CODE413007"/>
+			<ref id="%CODE413008"/>
+			<ref id="%CODE413009"/>
+			<ref id="%CODE413066"%VAL/>
+			<ref id="%CODE413067"%VAL/>
+			<ref id="%CODE413068"%VAL/>
+			<ref id="%CODE413069"%VAL/>
+			<ref id="%CODE413070"%VAL/>
+			<ref id="%CODE413071"%VAL/>
+			<ref id="%CODE413072"%VAL/>
+			<ref id="%CODE413073"%VAL/>
+		    <!-- ÊÎÌÌÓÒÀÒÎÐ 4 -->
+			<ref id="%CODE414002"/>
+			<ref id="%CODE414003"/>
+			<ref id="%CODE414004"/>
+			<ref id="%CODE414005"/>
+			<ref id="%CODE414006"/>
+			<ref id="%CODE414007"/>
+			<ref id="%CODE414008"/>
+			<ref id="%CODE414009"/>
+			<ref id="%CODE414010"/>
+			<ref id="%CODE414011"/>
+			<ref id="%CODE414012"/>
+			<ref id="%CODE414013"/>
+			<ref id="%CODE414066"%VAL/>
+			<ref id="%CODE414067"%VAL/>
+			<ref id="%CODE414068"%VAL/>
+			<ref id="%CODE414069"%VAL/>
+			<ref id="%CODE414070"%VAL/>
+			<ref id="%CODE414071"%VAL/>
+			<ref id="%CODE414072"%VAL/>
+			<ref id="%CODE414073"%VAL/>
+			<ref id="%CODE414074"%VAL/>
+			<ref id="%CODE414075"%VAL/>
+			<ref id="%CODE414076"%VAL/>
+			<ref id="%CODE414077"%VAL/>
+       		</indicator>

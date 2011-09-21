@@ -1,0 +1,241 @@
+<xs:schema xmlns:xs='http://www.w3.org/2001/XMLSchema'>
+
+ <xs:simpleType name='d3IdType'>
+  <xs:restriction base='xs:string'>
+   <xs:pattern value='\d{3}'/>
+  </xs:restriction>
+ </xs:simpleType>
+
+ <xs:simpleType name='d9IdType'>
+  <xs:restriction base='xs:string'>
+   <xs:pattern value='\d{9}'/>
+  </xs:restriction>
+ </xs:simpleType>
+
+ <xs:simpleType name='netportType'>
+  <xs:restriction base='xs:unsignedInt'>
+   <xs:minInclusive value='1001'/>
+   <xs:maxInclusive value='65535'/>
+  </xs:restriction>
+ </xs:simpleType>
+
+ <xs:simpleType name='netaddrType'>
+  <xs:restriction base='xs:string'>
+   <xs:pattern value='\d{1,3}\.\d{1,3}.\d{1,3}.\d{1,3}'/>
+  </xs:restriction>
+ </xs:simpleType>
+
+ <xs:simpleType name='boolType'>
+  <xs:restriction base='xs:string'>
+   <xs:enumeration value='yes'/>
+   <xs:enumeration value='no'/>
+  </xs:restriction>
+ </xs:simpleType>
+ 
+ <xs:simpleType name='levelType'>
+  <xs:restriction base='xs:int'>
+   <xs:minInclusive value='-1'/>
+   <xs:maxInclusive value='8'/>
+  </xs:restriction>
+ </xs:simpleType>
+
+ <xs:simpleType name='uintType_10'>
+  <xs:restriction base='xs:int'>
+   <xs:minInclusive value='1'/>
+   <xs:maxInclusive value='10'/>
+  </xs:restriction>
+ </xs:simpleType>
+
+ <xs:simpleType name='uintType_5'>
+  <xs:restriction base='xs:int'>
+   <xs:minInclusive value='1'/>
+   <xs:maxInclusive value='5'/>
+  </xs:restriction>
+ </xs:simpleType>
+
+ <xs:simpleType name='updateType'>
+  <xs:restriction base='xs:int'>
+   <xs:minInclusive value='100'/>
+   <xs:maxInclusive value='10000'/>
+  </xs:restriction>
+ </xs:simpleType>
+
+ <xs:element name='config'>
+  <xs:complexType>
+   <xs:sequence>
+     <xs:element ref='dirs'/>
+     <xs:element ref='debug'/>
+     <xs:element ref='network_c'/>
+     <xs:element ref='network_s'/>
+     <xs:element ref='servers'/>
+     <xs:element ref='clients'/>
+     <xs:element ref='base'/>
+   </xs:sequence>
+  <xs:attribute name='codepage' use='required'>
+   <xs:simpleType>
+    <xs:restriction base='xs:string'>
+     <xs:enumeration value='cp1251'/>
+     <xs:enumeration value='utf8'/>
+    </xs:restriction>
+   </xs:simpleType>
+  </xs:attribute>
+  </xs:complexType>
+ </xs:element>
+
+ <xs:element name='dirs'>
+  <xs:complexType>
+   <xs:sequence>
+     <xs:element ref='dir' maxOccurs='unbounded'/>
+   </xs:sequence>
+  </xs:complexType>
+ </xs:element>
+
+ <xs:element name='dir'>
+  <xs:complexType>
+  <xs:attribute name='name' use='required'/>
+  <xs:attribute name='path' use='required'/>
+  </xs:complexType>
+ </xs:element>
+
+ <xs:element name='debug'>
+  <xs:complexType>
+  <xs:attribute name='level' type='levelType' use='required'/>
+  <xs:attribute name='log' type='boolType' use='required'/>
+  </xs:complexType>
+ </xs:element>
+
+ <xs:element name='network_c'>
+  <xs:complexType>
+  <xs:attribute name='id' type='d3IdType' use='required'/>
+  <xs:attribute name='port_r' type='netportType' use='required'/>
+  <xs:attribute name='port_t' type='netportType' use='required'/>
+  <xs:attribute name='updt' type='updateType' use='required'/>
+  <xs:attribute name='lupdt' type='updateType' use='required'/>
+  <xs:attribute name='vupdt' type='updateType' use='required'/>
+  <xs:attribute name='max_clients' type='uintType_10' default='5'/>
+  <xs:attribute name='max_hard' type='uintType_5' default='3'/>
+  </xs:complexType>
+ </xs:element>
+
+ <xs:element name='network_s'>
+  <xs:complexType>
+  <xs:attribute name='id' type='d3IdType' use='required'/>
+  <xs:attribute name='port_r' type='netportType' use='required'/>
+  <xs:attribute name='port_t' type='netportType' use='required'/>
+  <xs:attribute name='updt' type='updateType' use='required'/>
+  </xs:complexType>
+ </xs:element>
+
+ <xs:element name='clients'>
+  <xs:complexType>
+   <xs:sequence>
+     <xs:element ref='client' maxOccurs='unbounded'/>
+   </xs:sequence>
+  </xs:complexType>
+ </xs:element>
+
+ <xs:element name='client'>
+  <xs:complexType>
+  <xs:attribute name='id' type='d3IdType' use='required'/>
+  <xs:attribute name='addr_b' type='netaddrType' use='required'/>
+  <xs:attribute name='addr_r' type='netaddrType' use='required'/>
+  <xs:attribute name='port' type='netportType'/>
+  <xs:attribute name='caption' type='xs:string' use='required'/>
+  </xs:complexType>
+ </xs:element>
+
+ <xs:element name='servers'>
+  <xs:complexType>
+   <xs:sequence>
+     <xs:element ref='server' maxOccurs='unbounded'/>
+   </xs:sequence>
+  </xs:complexType>
+ </xs:element>
+
+ <xs:element name='server'>
+  <xs:complexType>
+  <xs:attribute name='id' type='d3IdType' use='required'/>
+  <xs:attribute name='addr_b' type='netaddrType' use='required'/>
+  <xs:attribute name='addr_r' type='netaddrType' use='required'/>
+  <xs:attribute name='port' type='netportType'/>
+  <xs:attribute name='link' type='boolType' default="no"/>
+  <xs:attribute name='caption' type='xs:string' use='required'/>
+  </xs:complexType>
+ </xs:element>
+
+ <xs:group name='baseContent'>
+  <xs:sequence>
+   <xs:element ref='through'   minOccurs='0' maxOccurs='1'/>
+   <xs:element ref='common'    minOccurs='0' maxOccurs='1'/>
+   <xs:element ref='indicator' minOccurs='0' maxOccurs='1'/>
+  </xs:sequence>
+ </xs:group>
+
+ <xs:element name='base'>
+  <xs:complexType>
+   <xs:sequence>
+    <xs:group ref='baseContent' minOccurs='0' maxOccurs='unbounded'/>
+   </xs:sequence>
+  </xs:complexType>
+ </xs:element>
+
+ <xs:attributeGroup name='parAttr'>
+  <xs:attribute name='id' type="d9IdType" use='required'/>
+  <xs:attribute name='vtype' use='required'>
+   <xs:simpleType>
+    <xs:restriction base='xs:string'>
+     <xs:enumeration value='int'/>
+     <xs:enumeration value='string'/>
+     <xs:enumeration value='double'/>
+     <xs:enumeration value='short'/>
+    </xs:restriction>
+   </xs:simpleType>
+  </xs:attribute>
+ </xs:attributeGroup>
+
+ <xs:element name='through'>
+  <xs:complexType>
+  <xs:attributeGroup ref='parAttr'/>
+  <xs:attribute name='serv' type="d3IdType" />
+  </xs:complexType>
+ </xs:element>
+
+ <xs:simpleType name='logicOpType'>
+  <xs:restriction base='xs:string'>
+   <xs:enumeration value='&amp;&amp;'/>
+   <xs:enumeration value='||'/>
+  </xs:restriction>
+ </xs:simpleType>
+
+ <xs:element name='common'>
+  <xs:complexType>
+   <xs:sequence>
+     <xs:element ref='ref' minOccurs='1' maxOccurs='unbounded'/>
+   </xs:sequence>
+  <xs:attributeGroup ref='parAttr'/>
+  </xs:complexType>
+ </xs:element>
+
+ <xs:element name='indicator'>
+  <xs:complexType>
+   <xs:sequence>
+     <xs:element ref='ref' minOccurs='1' maxOccurs='unbounded'/>
+   </xs:sequence>
+  <xs:attributeGroup ref='parAttr'/>
+  </xs:complexType>
+ </xs:element>
+
+ <xs:element name='ref'>
+  <xs:complexType>
+  <xs:attribute name='id' use='required'>
+   <xs:simpleType>
+    <xs:restriction base='xs:string'>
+     <xs:pattern value='\d{9}'/>
+    </xs:restriction>
+   </xs:simpleType>
+  </xs:attribute>
+  <xs:attribute name='value' type='xs:string' default='1' />
+  </xs:complexType>
+ </xs:element>
+
+</xs:schema>

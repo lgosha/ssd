@@ -1,0 +1,93 @@
+
+<!-- %KKS %CODE -->
+	<!-- ÁÌ %CODE301 -->
+		%TEMPL.301.1
+	<!-- ÊÎÌÌÓÒÀÒÎÐ 1 %CODE415 -->
+		%TEMPL.415
+	<!-- ÊÎÌÌÓÒÀÒÎÐ 2 %CODE416 -->
+		%TEMPL.416
+	<!-- WARNING %KKS (%CODE) -->
+		<common id="%CODE000901" vtype="short">
+		    <!-- ÁÌ -->
+			<ref id="%CODE301003"/>
+			<ref id="%CODE301004"/>
+			<ref id="%CODE301504"/>
+                    <!-- ÊÎÌÌÓÒÀÒÎÐ 1 -->
+		    	%WARN_415
+                    <!-- ÊÎÌÌÓÒÀÒÎÐ 2 -->
+		    	%WARN_416
+       	</common>
+	<!-- ALARM %KKS (%CODE) -->
+		<common id="%CODE000902" vtype="short">
+		    <!-- ÁÌ -->
+			<ref id="%CODE301001"/>
+			<ref id="%CODE301505"/>
+                    <!-- ÊÎÌÌÓÒÀÒÎÐ 1 -->
+			<ref id="%CODE415001"/>
+		    	%ALARM_415
+                    <!-- ÊÎÌÌÓÒÀÒÎÐ 2 -->
+			<ref id="%CODE416001"/>
+		    	%ALARM_416
+        	</common>
+	<!-- BLINK %KKS (%CODE) -->
+		<indicator id="%CODE000801" vtype="short">
+		    <!-- ÁÌ -->
+			<ref id="%CODE301003"/>
+			<ref id="%CODE301004"/>
+			<ref id="%CODE301504"/>
+			<ref id="%CODE301505"/>
+		    <!-- ÊÎÌÌÓÒÀÒÎÐ 1 -->
+			<ref id="%CODE415002"/>
+			<ref id="%CODE415003"/>
+			<ref id="%CODE415004"/>
+			<ref id="%CODE415005"/>
+			<ref id="%CODE415006"/>
+			<ref id="%CODE415007"/>
+			<ref id="%CODE415008"/>
+			<ref id="%CODE415009"/>
+			<ref id="%CODE415010"/>
+			<ref id="%CODE415011"/>
+			<ref id="%CODE415012"/>
+			<ref id="%CODE415013"/>
+			<ref id="%CODE415014"/>
+			<ref id="%CODE415015"/>
+			<ref id="%CODE415066"%VAL/>
+			<ref id="%CODE415067"%VAL/>
+			<ref id="%CODE415068"%VAL/>
+			<ref id="%CODE415069"%VAL/>
+			<ref id="%CODE415070"%VAL/>
+			<ref id="%CODE415071"%VAL/>
+			<ref id="%CODE415072"%VAL/>
+			<ref id="%CODE415073"%VAL/>
+			<ref id="%CODE415074"%VAL/>
+			<ref id="%CODE415075"%VAL/>
+			<ref id="%CODE415076"%VAL/>
+			<ref id="%CODE415077"%VAL/>
+			<ref id="%CODE415078"%VAL/>
+			<ref id="%CODE415079"%VAL/>
+		    <!-- ÊÎÌÌÓÒÀÒÎÐ 2 -->
+			<ref id="%CODE416002"/>
+			<ref id="%CODE416003"/>
+			<ref id="%CODE416004"/>
+			<ref id="%CODE416005"/>
+			<ref id="%CODE416006"/>
+			<ref id="%CODE416007"/>
+			<ref id="%CODE416008"/>
+			<ref id="%CODE416009"/>
+			<ref id="%CODE416010"/>
+			<ref id="%CODE416011"/>
+			<ref id="%CODE416012"/>
+			<ref id="%CODE416013"/>
+			<ref id="%CODE416066"%VAL/>
+			<ref id="%CODE416067"%VAL/>
+			<ref id="%CODE416068"%VAL/>
+			<ref id="%CODE416069"%VAL/>
+			<ref id="%CODE416070"%VAL/>
+			<ref id="%CODE416071"%VAL/>
+			<ref id="%CODE416072"%VAL/>
+			<ref id="%CODE416073"%VAL/>
+			<ref id="%CODE416074"%VAL/>
+			<ref id="%CODE416075"%VAL/>
+			<ref id="%CODE416076"%VAL/>
+			<ref id="%CODE416077"%VAL/>
+       		</indicator>
