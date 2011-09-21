@@ -1,0 +1,28 @@
+
+	<!ELEMENT config (section+, network, servers)>
+	<!ATTLIST config
+		codepage	CDATA		#REQUIRED>
+
+	<!ELEMENT section (par+)>
+	<!ATTLIST section
+		name		CDATA		#REQUIRED>
+
+	<!ELEMENT par EMPTY>
+	<!ATTLIST par
+		name		CDATA		#REQUIRED
+		value		CDATA		#REQUIRED>
+
+	<!ELEMENT network EMPTY>
+	<!ATTLIST network
+		id		CDATA		#REQUIRED
+		port		CDATA		#REQUIRED>
+
+	<!ELEMENT servers (server+)>
+
+	<!ELEMENT server EMPTY>
+	<!ATTLIST server
+		id		CDATA		#REQUIRED
+		addr		CDATA		#REQUIRED
+		port		CDATA		#REQUIRED
+		caption		CDATA		#REQUIRED>
+

@@ -1,0 +1,3 @@
+#!/bin/bash
+
+service dsc restart `pwd` /etc/dsc/dsc.xml

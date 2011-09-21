@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="WINDOWS-1251"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation='dac.xsd' codepage="cp1251">
+
+	<!-- директории программы -->
+	<dirs>
+		<dir name="etc" path="etc" />
+		<dir name="log" path="log" />
+		<dir name="tmp" path="tmp" />
+	</dirs>
+
+	<!-- параметры окна просмотра (при использовании) --> 
+	<view x="5" y="25" width="1024" height="600" />
+
+	<!-- параметры отладки (при использовании) --> 
+	<debug level="8" wnd="no" log="no" />
+
+	<!-- перечень и настройки опрашиваемых устройств  --> 
+	<snmphosts>
+		    %HOSTS
+	</snmphosts>
+
+	<!-- перечень и настройки потоков сбора данных --> 
+	<threads>
+		<thread type="snmp" tupdt="1000" mupdt="60000" caption="datathread_snmp" logid="001"/>
+	</threads>
+
+	<!-- сетевые настройки программы  --> 
+	<network id="%CODE" port_r="3725" port_t="3726" logid="002" />
+
+	<!-- перечень и настройки клиентов, которые могут получить данные от программы --> 
+	<clients>
+		<client id="001" addr_b="192.168.1.12" addr_r="192.168.1.12" caption="40HLC01.dsc" />
+		<client id="002" addr_b="192.168.1.13" addr_r="192.168.1.13" caption="40HLC02.dsc" />
+		<client id="003" addr_b="192.168.1.11" addr_r="192.168.1.11" caption="40HLD01.dsc" />
+		<client id="801" addr_b="192.168.1.51" addr_r="192.168.1.51" port="3727" caption="default.ddv" />
+	</clients>
+
+	<!-- перечень и настройки потоков логирования --> 
+	<logs>
+		<log id="001" caption="snmpthread"/>
+		<log id="002" caption="udpserver"/>
+	</logs>
+
+	<!-- база сигналов --> 
+	<base>
+		%BASE
+	</base>	
+
+</config>

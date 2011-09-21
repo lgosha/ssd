@@ -1,0 +1,4 @@
+#! /bin/sh
+if [ -f ./Makefile ]; then make distclean; fi
+DIR=`basename $PWD`
+cd .. && tar cf - "$DIR" | bzip2 -f > "$DIR.tar.bz2"

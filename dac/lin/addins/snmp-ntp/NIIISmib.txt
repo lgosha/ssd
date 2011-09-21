@@ -1,0 +1,72 @@
+NIIIS-MIB DEFINITIONS ::= BEGIN
+
+-- A Comment!
+
+-- IMPORTS: Include definitions from other mibs here, which is always
+-- the first item in a MIB file.
+IMPORTS
+    OBJECT-TYPE, NOTIFICATION-TYPE, MODULE-IDENTITY,
+    Integer32, Opaque, enterprises, Counter32           FROM SNMPv2-SMI
+    TEXTUAL-CONVENTION, DisplayString, TruthValue       FROM SNMPv2-TC
+    MODULE-COMPLIANCE, OBJECT-GROUP                     FROM SNMPv2-CONF
+    ucdExperimental, Float                              FROM UCD-SNMP-MIB;
+
+
+--
+-- A brief description and update information about this mib.
+--
+niiisMIB MODULE-IDENTITY
+    LAST-UPDATED "201003181200Z"            --  18 Mar 2010, midday
+    ORGANIZATION "NIIIS"
+    CONTACT-INFO "
+                  Author:     Lepekhin Igor,
+                  postal:     Russia, Nizhny Novgorod,
+                              Tropinina-46,
+                  email:      lgosha@rambler.ru
+                  phone:      +7-812-469-56-11
+                 "
+    DESCRIPTION  "A mib for diagniostic.
+                 "
+    ::= { ucdExperimental 5000 }
+
+-- Define typical mib nodes, like where the objects are going to lie.
+niiisMIBObjects     OBJECT IDENTIFIER ::= { niiisMIB 1 }
+niiisMIBConformance OBJECT IDENTIFIER ::= { niiisMIB 2 }
+
+-- SVBU
+diag              OBJECT IDENTIFIER ::= { niiisMIBObjects 1 }
+hardware          OBJECT IDENTIFIER ::= { diag 1 }
+software          OBJECT IDENTIFIER ::= { diag 2 }
+
+-- Definition of NTP subsystem
+ntp OBJECT IDENTIFIER ::= { software 1 }
+ntpd OBJECT IDENTIFIER ::= { ntp 1 }
+
+ntpStatus OBJECT-TYPE
+    SYNTAX INTEGER {
+        unknown(0),
+        stop(1),
+        freerun(2),
+        sync(3)
+    }
+
+    MAX-ACCESS    read-only
+    STATUS        mandatory
+    DESCRIPTION   "Status of NTP subsystem"
+    ::= { ntpd 1 }
+
+ntpOffset OBJECT-TYPE
+    SYNTAX        DisplayString
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION   "Current offset of system clock from ntp server"
+    ::= { ntpd 2 }
+
+ntpSrc OBJECT-TYPE
+    SYNTAX        DisplayString
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION   "Current ntp server address"
+    ::= { ntpd 3 }
+
+END

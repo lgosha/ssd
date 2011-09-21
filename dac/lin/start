@@ -1,0 +1,8 @@
+#!/bin/bash
+
+if [ "$1" = "console" ]; then
+    bin/dac --directory `pwd` --wnd --config /etc/dac/dac.xml
+    exit
+fi
+
+service dac start `pwd` /etc/dac/dac.xml

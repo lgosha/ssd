@@ -1,0 +1,98 @@
+#!/bin/sh
+# /etc/init.d/dac
+# System startup script for service dac
+
+# processname: dac
+
+### BEGIN INIT INFO
+# Provides:          dac
+# Required-Start:    
+# Should-Start:
+# Required-Stop:
+# Should-Stop:
+# Default-Start:     2 3 5
+# Default-Stop:
+# Short-Description: shws diagnostic server comoponent
+# Description:       provide shwd diagnostic of shws throw snmp
+#                    and send information to common component throw
+#                    internal protocol based on UDP
+### END INIT INFO
+
+RETVAL=0
+
+. /etc/init.d/functions
+
+DIR=$2; CONF=$3
+[ -z $DIR ] && DIR="/opt/dac"
+[ -z $CONF ] && CONF="/etc/dac/dac.xml"
+BIN=$DIR/bin/dac
+test -x $BIN || exit 1
+
+start() {
+    echo -n "Starting dac : "
+    if [ ! -f /var/lock/subsys/dac ]; then
+	daemon $BIN --config $CONF --directory $DIR --daemon
+	echo
+	RETVAL=$?
+	[ $RETVAL -eq 0 ] && touch /var/lock/subsys/dac
+    else
+	echo -n " always running..."
+	echo_failure
+	echo
+    fi
+}
+
+stop() {
+    echo -n "Stopping dac : "
+    if [ -f /var/lock/subsys/dac ]; then
+        killproc $BIN -TERM
+	echo
+        RETVAL=$?
+        [ $RETVAL -eq 0 ] && rm -f /var/lock/subsys/dac
+    else
+	echo -n " not running..."
+	echo_failure    
+	echo
+    fi
+}
+
+restart() {
+    echo -n "Stopping dac : "
+    if [ -f /var/lock/subsys/dac ]; then
+        killproc $BIN -TERM
+        RETVAL=$?
+        [ $RETVAL -eq 0 ] && rm -f /var/lock/subsys/dac
+        echo
+    else
+	echo -n " not running..."
+	echo_failure    
+	echo
+    fi
+
+    echo -n "Starting dac : "
+    daemon $BIN --config $CONF --directory $DIR --daemon
+    echo
+    RETVAL=$?
+    [ $RETVAL -eq 0 ] && touch /var/lock/subsys/dac
+}
+
+
+case "$1" in
+    start)
+	start
+	;;
+    stop)
+	stop
+	;;
+    restart)
+	restart
+	;;
+    status)
+	status dac
+        ;;
+    *)
+	gprintf "Usage: %s {start|stop|status|restart}\n" "$0"
+	exit 1
+esac
+
+exit $?

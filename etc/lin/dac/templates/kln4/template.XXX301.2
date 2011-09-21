@@ -1,0 +1,43 @@
+	<!-- МБ %CODE301 -->
+		<!-- %CODE301001 состояние связи с устройством числ. -->
+		<snmp		id	= "%CODE301001" 
+				ptype	= "value"
+				vtype   = "int"
+				fval    = "1"
+				gval    = "0"
+				addr    = ".1.3.6.1.2.1.1.3.0" 
+				update  = "1000" >
+		</snmp>
+
+		<!-- %CODE301501 состояние связи с устройством симв. -->
+		<calc	 	id     = "%CODE301501" 
+				ptype  = "value"
+				vtype  = "string"
+				math   = ",%CODE301001">
+
+			<rule key="0" value="есть" />
+			<rule key="1" value="нет"  />
+		</calc>
+
+		<!-- %CODE301003 состояние двери 1 числ. -->
+		<snmp		id	= "%CODE301003" 
+				ptype	= "value"
+				vtype   = "int"
+				addr    = ".1.3.6.1.4.1.2021.8.1.101.23" 
+				rexp    = ".*\s+"
+				sdep    = "%CODE301001"
+				update  = "5000" >
+
+			<rule key="0" value="1" />
+			<rule key="1" value="0"  />
+		</snmp>
+
+		<!-- %CODE301003 состояние двери 1 симв. -->
+		<calc	 	id     = "%CODE301502" 
+				ptype  = "value"
+				vtype  = "string"
+				math   = ",%CODE301003">
+
+			<rule key="1" value="открыта"  />
+			<rule key="0" value="закрыта" />
+		</calc>

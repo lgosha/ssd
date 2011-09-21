@@ -1,0 +1,358 @@
+	<!-- КОММУТАТОР %CODE406 -->
+		<!-- %CODE406001 состояние связи с устройством числ. -->
+		<snmp		id	= "%CODE406001" 
+				ptype	= "value"
+				vtype   = "short"
+				fval    = "1"
+				gval    = "0"
+				addr    = ".1.3.6.1.2.1.1.3.0" 
+				update  = "1000" >
+		</snmp>
+
+		<!-- %CODE406501 состояние связи с устройством симв. -->
+		<calc		id	= "%CODE406501" 
+				ptype	= "value"
+				vtype   = "string"
+				math   = ",%CODE406001">
+
+			<rule key="0" value="есть" />
+			<rule key="1" value="нет"  />
+		</calc>
+
+		<!-- %CODE406002 состояние порта 1 числ. -->
+		<snmp		id	= "%CODE406002"
+				ptype	= "value"
+				vtype   = "short"
+				rexp    = ".*\s+"
+				addr    = ".1.3.6.1.2.1.2.2.1.7.1"
+				sdep    = "%CODE406001"
+				update  = "5000" >
+
+			<rule key="1" value="0" />
+			<rule key="2" value="1" />
+			<rule key="3" value="1" />
+		</snmp>
+		
+		<!-- %CODE406102 состояние порта 1 симв. -->
+		<calc	 	id     = "%CODE406102" 
+				ptype  = "value"
+				vtype  = "string"
+				math   = ",%CODE406002">
+
+			<rule key="0" value="включен" />
+			<rule key="1" value="отключен"  />
+		</calc>
+		
+		<!-- %CODE406003 состояние порта 2 числ. -->
+		<snmp		id	= "%CODE406003"
+				ptype	= "value"
+				vtype   = "short"
+				rexp    = ".*\s+"
+				addr    = ".1.3.6.1.2.1.2.2.1.7.2"
+				sdep    = "%CODE406001"
+				update  = "5000" >
+
+			<rule key="1" value="0" />
+			<rule key="2" value="1" />
+			<rule key="3" value="1" />
+		</snmp>
+
+		<!-- %CODE406103 состояние порта 2 симв. -->
+		<calc	 	id     = "%CODE406103" 
+				ptype  = "value"
+				vtype  = "string"
+				math   = ",%CODE406003">
+
+			<rule key="0" value="включен" />
+			<rule key="1" value="отключен"  />
+		</calc>
+
+		<!-- %CODE406004 состояние порта 3 числ. -->
+		<snmp		id	= "%CODE406004"
+				ptype	= "value"
+				vtype   = "short"
+				rexp    = ".*\s+"
+				addr    = ".1.3.6.1.2.1.2.2.1.7.3"
+				sdep    = "%CODE406001"
+				update  = "5000" >
+
+			<rule key="1" value="0" />
+			<rule key="2" value="1" />
+			<rule key="3" value="1" />
+		</snmp>
+
+		<!-- %CODE406104 состояние порта 3 симв. -->
+		<calc	 	id     = "%CODE406104" 
+				ptype  = "value"
+				vtype  = "string"
+				math   = ",%CODE406004">
+
+			<rule key="0" value="включен" />
+			<rule key="1" value="отключен"  />
+		</calc>
+
+		<!-- %CODE406005 состояние порта 4 числ. -->
+		<snmp		id	= "%CODE406005"
+				ptype	= "value"
+				vtype   = "short"
+				rexp    = ".*\s+"
+				addr    = ".1.3.6.1.2.1.2.2.1.7.4"
+				sdep    = "%CODE406001"
+				update  = "5000" >
+
+			<rule key="1" value="0" />
+			<rule key="2" value="1" />
+			<rule key="3" value="1" />
+		</snmp>
+
+		<!-- %CODE406105 состояние порта 4 симв. -->
+		<calc	 	id     = "%CODE406105" 
+				ptype  = "value"
+				vtype  = "string"
+				math   = ",%CODE406005">
+
+			<rule key="0" value="включен" />
+			<rule key="1" value="отключен"  />
+		</calc>
+
+		<!-- %CODE406006 состояние порта 5 числ. -->
+		<snmp		id	= "%CODE406006"
+				ptype	= "value"
+				vtype   = "short"
+				rexp    = ".*\s+"
+				addr    = ".1.3.6.1.2.1.2.2.1.7.5"
+				sdep    = "%CODE406001"
+				update  = "5000" >
+
+			<rule key="1" value="0" />
+			<rule key="2" value="1" />
+			<rule key="3" value="1" />
+		</snmp>
+
+		<!-- %CODE406106 состояние порта 5 симв. -->
+		<calc	 	id     = "%CODE406106" 
+				ptype  = "value"
+				vtype  = "string"
+				math   = ",%CODE406006">
+
+			<rule key="0" value="включен" />
+			<rule key="1" value="отключен"  />
+		</calc>
+
+		<!-- %CODE406007 состояние порта 6 числ. -->
+		<snmp		id	= "%CODE406007"
+				ptype	= "value"
+				vtype   = "short"
+				rexp    = ".*\s+"
+				addr    = ".1.3.6.1.2.1.2.2.1.7.6"
+				sdep    = "%CODE406001"
+				update  = "5000" >
+
+			<rule key="1" value="0" />
+			<rule key="2" value="1" />
+			<rule key="3" value="1" />
+		</snmp>
+
+		<!-- %CODE406107 состояние порта 6 симв. -->
+		<calc	 	id     = "%CODE406107" 
+				ptype  = "value"
+				vtype  = "string"
+				math   = ",%CODE406007">
+
+			<rule key="0" value="включен" />
+			<rule key="1" value="отключен"  />
+		</calc>
+
+		<!-- %CODE406008 состояние порта 7 числ. -->
+		<snmp		id	= "%CODE406008"
+				ptype	= "value"
+				vtype   = "short"
+				rexp    = ".*\s+"
+				addr    = ".1.3.6.1.2.1.2.2.1.7.7"
+				sdep    = "%CODE406001"
+				update  = "5000" >
+
+			<rule key="1" value="0" />
+			<rule key="2" value="1" />
+			<rule key="3" value="1" />
+		</snmp>
+
+		<!-- %CODE406108 состояние порта 7 симв. -->
+		<calc	 	id     = "%CODE406108" 
+				ptype  = "value"
+				vtype  = "string"
+				math   = ",%CODE406008">
+
+			<rule key="0" value="включен" />
+			<rule key="1" value="отключен"  />
+		</calc>
+
+		<!-- %CODE406009 состояние порта 8 числ. -->
+		<snmp		id	= "%CODE406009"
+				ptype	= "value"
+				vtype   = "short"
+				rexp    = ".*\s+"
+				addr    = ".1.3.6.1.2.1.2.2.1.7.8"
+				sdep    = "%CODE406001"
+				update  = "5000" >
+
+			<rule key="1" value="0" />
+			<rule key="2" value="1" />
+			<rule key="3" value="1" />
+		</snmp>
+
+		<!-- %CODE406109 состояние порта 8 симв. -->
+		<calc	 	id     = "%CODE406109" 
+				ptype  = "value"
+				vtype  = "string"
+				math   = ",%CODE406009">
+
+			<rule key="0" value="включен" />
+			<rule key="1" value="отключен"  />
+		</calc>
+
+		<!-- %CODE406010 состояние порта 9 числ. -->
+		<snmp		id	= "%CODE406010"
+				ptype	= "value"
+				vtype   = "short"
+				rexp    = ".*\s+"
+				addr    = ".1.3.6.1.2.1.2.2.1.7.13"
+				sdep    = "%CODE406001"
+				update  = "5000" >
+
+			<rule key="1" value="0" />
+			<rule key="2" value="1" />
+			<rule key="3" value="1" />
+		</snmp>
+
+		<!-- %CODE406110 состояние порта 9 симв. -->
+		<calc	 	id     = "%CODE406110" 
+				ptype  = "value"
+				vtype  = "string"
+				math   = ",%CODE406010">
+
+			<rule key="0" value="включен" />
+			<rule key="1" value="отключен"  />
+		</calc>
+
+		<!-- %CODE406011 состояние порта 10 числ. -->
+		<snmp		id	= "%CODE406011"
+				ptype	= "value"
+				vtype   = "short"
+				rexp    = ".*\s+"
+				addr    = ".1.3.6.1.2.1.2.2.1.7.14"
+				sdep    = "%CODE406001"
+				update  = "5000" >
+
+			<rule key="1" value="0" />
+			<rule key="2" value="1" />
+			<rule key="3" value="1" />
+		</snmp>
+
+		<!-- %CODE406111 состояние порта 10 симв. -->
+		<calc	 	id     = "%CODE406111" 
+				ptype  = "value"
+				vtype  = "string"
+				math   = ",%CODE406011">
+
+			<rule key="0" value="включен" />
+			<rule key="1" value="отключен"  />
+		</calc>
+
+		<!-- %CODE406012 состояние порта 11 числ. -->
+		<snmp		id	= "%CODE406012"
+				ptype	= "value"
+				vtype   = "short"
+				rexp    = ".*\s+"
+				addr    = ".1.3.6.1.2.1.2.2.1.7.15"
+				sdep    = "%CODE406001"
+				update  = "5000" >
+
+			<rule key="1" value="0" />
+			<rule key="2" value="1" />
+			<rule key="3" value="1" />
+		</snmp>
+
+		<!-- %CODE406112 состояние порта 11 симв. -->
+		<calc	 	id     = "%CODE406112" 
+				ptype  = "value"
+				vtype  = "string"
+				math   = ",%CODE406012">
+
+			<rule key="0" value="включен" />
+			<rule key="1" value="отключен"  />
+        	</calc>
+        	
+        	<!-- %CODE406013 состояние порта 12 числ. -->
+		<snmp		id	= "%CODE406013"
+				ptype	= "value"
+				vtype   = "short"
+				rexp    = ".*\s+"
+				addr    = ".1.3.6.1.2.1.2.2.1.7.16"
+				sdep    = "%CODE406001"
+				update  = "5000" >
+
+			<rule key="1" value="0" />
+			<rule key="2" value="1" />
+			<rule key="3" value="1" />
+		</snmp>
+
+		<!-- %CODE406113 состояние порта 12 симв. -->
+		<calc	 	id     = "%CODE406113" 
+				ptype  = "value"
+				vtype  = "string"
+				math   = ",%CODE406013">
+
+			<rule key="0" value="включен" />
+			<rule key="1" value="отключен"  />
+		</calc>
+
+        	<!-- %CODE406014 состояние порта 13 числ. -->
+		<snmp		id	= "%CODE406014"
+				ptype	= "value"
+				vtype   = "short"
+				rexp    = ".*\s+"
+				addr    = ".1.3.6.1.2.1.2.2.1.7.17"
+				sdep    = "%CODE406001"
+				update  = "5000" >
+
+			<rule key="1" value="0" />
+			<rule key="2" value="1" />
+			<rule key="3" value="1" />
+		</snmp>
+
+		<!-- %CODE406114 состояние порта 13 симв. -->
+		<calc	 	id     = "%CODE406114" 
+				ptype  = "value"
+				vtype  = "string"
+				math   = ",%CODE406014">
+
+			<rule key="0" value="включен" />
+			<rule key="1" value="отключен"  />
+		</calc>
+
+        	<!-- %CODE406015 состояние порта 14 числ. -->
+		<snmp		id	= "%CODE406015"
+				ptype	= "value"
+				vtype   = "short"
+				rexp    = ".*\s+"
+				addr    = ".1.3.6.1.2.1.2.2.1.7.19"
+				sdep    = "%CODE406001"
+				update  = "5000" >
+
+			<rule key="1" value="0" />
+			<rule key="2" value="1" />
+			<rule key="3" value="1" />
+		</snmp>
+
+		<!-- %CODE406115 состояние порта 14 симв. -->
+		<calc	 	id     = "%CODE406115" 
+				ptype  = "value"
+				vtype  = "string"
+				math   = ",%CODE406015">
+
+			<rule key="0" value="включен" />
+			<rule key="1" value="отключен"  />
+		</calc>
+
+		%LINK_PORTS

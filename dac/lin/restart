@@ -1,0 +1,3 @@
+#!/bin/bash
+
+service dac restart `pwd` /etc/dac/dac.xml

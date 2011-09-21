@@ -1,0 +1,153 @@
+
+<!-- %KKS %CODE -->
+	<!-- ая %CODE101 -->
+		%TEMPL.101.3
+	<!-- ая %CODE102 -->
+		%TEMPL.102
+	<!-- хао %CODE201 -->
+		%TEMPL.201
+	<!-- ал %CODE301 -->
+		%TEMPL.301.1
+	<!-- WARNING %KKS (%CODE) -->
+		<common id="%CODE000901" vtype="short">
+		    <!-- ая 1 -->
+			%WARN_101
+			<ref id="%CODE101510"/>
+			<ref id="%CODE101512"/>
+			<ref id="%CODE101514"/>
+			<ref id="%CODE101516"/>
+			<ref id="%CODE101508"/>
+		    <!-- ая 2 -->
+			%WARN_102
+			<ref id="%CODE102510"/>
+			<ref id="%CODE102512"/>
+			<ref id="%CODE102514"/>
+			<ref id="%CODE102516"/>
+			<ref id="%CODE102508"/>
+		    <!-- хао -->
+			<ref id="%CODE201002"/>
+			<ref id="%CODE201510"/>
+			<ref id="%CODE201503"/>
+			<ref id="%CODE301003"/>
+		    <!-- ал -->
+			<ref id="%CODE301004"/>
+			<ref id="%CODE301504"/>
+        	</common>
+	<!-- ALARM %KKS (%CODE) -->
+		<common id="%CODE000902" vtype="short">
+		    <!-- ая 1 -->
+			<ref id="%CODE101001"/>
+			<ref id="%CODE101008"/>
+			<ref id="%CODE101009"/>
+			<ref id="%CODE101010"/>
+			<ref id="%CODE101011"/>
+			<ref id="%CODE101012"/>
+			<ref id="%CODE101013"/>
+			<ref id="%CODE101014"/>
+			<ref id="%CODE101015"/>
+			%ALARM_101
+			<ref id="%CODE101511"/>
+			<ref id="%CODE101513"/>
+			<ref id="%CODE101515"/>
+			<ref id="%CODE101521"/>
+		    <!-- ая 2 -->
+			<ref id="%CODE102001"/>
+			<ref id="%CODE102008"/>
+			<ref id="%CODE102009"/>
+			<ref id="%CODE102010"/>
+			<ref id="%CODE102011"/>
+			<ref id="%CODE102012"/>
+			<ref id="%CODE102013"/>
+			<ref id="%CODE102014"/>
+			<ref id="%CODE102015"/>
+			%ALARM_102
+			<ref id="%CODE102511"/>
+			<ref id="%CODE102513"/>
+			<ref id="%CODE102515"/>
+			<ref id="%CODE102521"/>
+		    <!-- хао -->
+			<ref id="%CODE201001"/>
+			<ref id="%CODE201515"/>
+			<ref id="%CODE201504"/>
+			<ref id="%CODE201505"/>
+			<ref id="%CODE201506"/>
+			<ref id="%CODE201507"/>
+			<ref id="%CODE201508"/>
+			<ref id="%CODE201509"/>
+			<ref id="%CODE201511"/>
+		    <!-- ал -->
+			<ref id="%CODE301001"/>
+			<ref id="%CODE301505"/>
+        	</common>
+	<!-- BLINK %KKS (%CODE) -->
+		<indicator id="%CODE000801" vtype="short">
+		    <!-- ая 1 -->
+			<ref id="%CODE101008"/>
+			<ref id="%CODE101009"/>
+			<ref id="%CODE101010"/>
+			<ref id="%CODE101011"/>
+			<ref id="%CODE101012"/>
+			<ref id="%CODE101013"/>
+			<ref id="%CODE101014"/>
+			<ref id="%CODE101015"/>
+			<ref id="%CODE101018"%VAL/>
+			<ref id="%CODE101019"%VAL/>
+			<ref id="%CODE101020"%VAL/>
+			<ref id="%CODE101021"%VAL/>
+			<ref id="%CODE101022"%VAL/>
+			<ref id="%CODE101023"%VAL/>
+			<ref id="%CODE101024"%VAL/>
+			<ref id="%CODE101025"%VAL/>
+			<ref id="%CODE101508"/>
+			<ref id="%CODE101510"/>
+			<ref id="%CODE101511"/>
+			<ref id="%CODE101512"/>
+			<ref id="%CODE101513"/>
+			<ref id="%CODE101514"/>
+			<ref id="%CODE101515"/>
+			<ref id="%CODE101516"/>
+			<ref id="%CODE101521"/>
+		    <!-- ая 2 -->
+			<ref id="%CODE102008"/>
+			<ref id="%CODE102009"/>
+			<ref id="%CODE102010"/>
+			<ref id="%CODE102011"/>
+			<ref id="%CODE102012"/>
+			<ref id="%CODE102013"/>
+			<ref id="%CODE102014"/>
+			<ref id="%CODE102015"/>
+			<ref id="%CODE102018"%VAL/>
+			<ref id="%CODE102019"%VAL/>
+			<ref id="%CODE102020"%VAL/>
+			<ref id="%CODE102021"%VAL/>
+			<ref id="%CODE102022"%VAL/>
+			<ref id="%CODE102023"%VAL/>
+			<ref id="%CODE102024"%VAL/>
+			<ref id="%CODE102025"%VAL/>
+			<ref id="%CODE102508"/>
+			<ref id="%CODE102510"/>
+			<ref id="%CODE102511"/>
+			<ref id="%CODE102512"/>
+			<ref id="%CODE102513"/>
+			<ref id="%CODE102514"/>
+			<ref id="%CODE102515"/>
+			<ref id="%CODE102516"/>
+			<ref id="%CODE102521"/>
+		    <!-- хао -->
+			<ref id="%CODE201002"/>
+			<ref id="%CODE201515"/>
+			<ref id="%CODE201503"/>
+			<ref id="%CODE201504"/>
+			<ref id="%CODE201505"/>
+			<ref id="%CODE201506"/>
+			<ref id="%CODE201507"/>
+			<ref id="%CODE201508"/>
+			<ref id="%CODE201509"/>
+			<ref id="%CODE201510"/>
+			<ref id="%CODE201511"/>
+		    <!-- ал -->
+			<ref id="%CODE301003"/>
+			<ref id="%CODE301004"/>
+			<ref id="%CODE301504"/>
+			<ref id="%CODE301505"/>
+       		</indicator>

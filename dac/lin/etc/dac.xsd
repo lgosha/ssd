@@ -1,0 +1,359 @@
+<xs:schema xmlns:xs='http://www.w3.org/2001/XMLSchema'>
+
+ <xs:simpleType name='d3IdType'>
+  <xs:restriction base='xs:string'>
+   <xs:pattern value='\d{3}'/>
+  </xs:restriction>
+ </xs:simpleType>
+
+ <xs:simpleType name='netportType'>
+  <xs:restriction base='xs:unsignedInt'>
+   <xs:minInclusive value='1001'/>
+   <xs:maxInclusive value='65535'/>
+  </xs:restriction>
+ </xs:simpleType>
+
+ <xs:simpleType name='netaddrType'>
+  <xs:restriction base='xs:string'>
+   <xs:pattern value='\d{1,3}\.\d{1,3}.\d{1,3}.\d{1,3}'/>
+  </xs:restriction>
+ </xs:simpleType>
+
+ <xs:element name='config'>
+  <xs:complexType>
+   <xs:sequence>
+     <xs:element ref='dirs'/>
+     <xs:element ref='view'/>
+     <xs:element ref='debug'/>
+     <xs:element ref='snmphosts'/>
+     <xs:element ref='threads'/>
+     <xs:element ref='network'/>
+     <xs:element ref='clients'/>
+     <xs:element ref='logs'/>
+     <xs:element ref='base'/>
+   </xs:sequence>
+  <xs:attribute name='codepage' use='required'>
+   <xs:simpleType>
+    <xs:restriction base='xs:string'>
+     <xs:enumeration value='cp1251'/>
+     <xs:enumeration value='utf8'/>
+    </xs:restriction>
+   </xs:simpleType>
+  </xs:attribute>
+  </xs:complexType>
+ </xs:element>
+
+ <xs:element name='dirs'>
+  <xs:complexType>
+   <xs:sequence>
+     <xs:element ref='dir' maxOccurs='unbounded'/>
+   </xs:sequence>
+  </xs:complexType>
+ </xs:element>
+
+ <xs:element name='dir'>
+  <xs:complexType>
+  <xs:attribute name='name' use='required'/>
+  <xs:attribute name='path' use='required'/>
+  </xs:complexType>
+ </xs:element>
+
+ <xs:element name='view'>
+  <xs:complexType>
+  <xs:attribute name='x' type='xs:unsignedInt' use='required'/>
+  <xs:attribute name='y' type='xs:unsignedInt' use='required'/>
+  <xs:attribute name='width'  type='xs:unsignedInt' use='required'/>
+  <xs:attribute name='height' type='xs:unsignedInt' use='required'/>
+  </xs:complexType>
+ </xs:element>
+
+ <xs:simpleType name='boolType'>
+  <xs:restriction base='xs:string'>
+   <xs:enumeration value='yes'/>
+   <xs:enumeration value='no'/>
+  </xs:restriction>
+ </xs:simpleType>
+ 
+ <xs:simpleType name='levelType'>
+  <xs:restriction base='xs:int'>
+   <xs:minInclusive value='0'/>
+   <xs:maxInclusive value='8'/>
+  </xs:restriction>
+ </xs:simpleType>
+
+ <xs:element name='debug'>
+  <xs:complexType>
+  <xs:attribute name='level' use='required'>
+   <xs:simpleType>
+    <xs:restriction base='xs:int'>
+     <xs:minInclusive value='-1'/>
+     <xs:maxInclusive value='8'/>
+    </xs:restriction>
+   </xs:simpleType>
+  </xs:attribute>
+  <xs:attribute name='log' type='boolType' use='required'/>
+  </xs:complexType>
+ </xs:element>
+
+ <xs:element name='snmphosts'>
+  <xs:complexType>
+   <xs:sequence>
+     <xs:element ref='host' maxOccurs='unbounded'/>
+   </xs:sequence>
+  </xs:complexType>
+ </xs:element>
+
+ <xs:element name='host'>
+  <xs:complexType>
+  <xs:attribute name='id' use='required'>
+   <xs:simpleType>
+    <xs:restriction base='xs:string'>
+     <xs:pattern value='\d{6}'/>
+    </xs:restriction>
+   </xs:simpleType>
+  </xs:attribute>
+  <xs:attribute name='addr' type='netaddrType' use='required'/>
+  <xs:attribute name='pass' use='optional' default='public'/>
+  <xs:attribute name='timeout' use='optional' default='250'>
+   <xs:simpleType>
+    <xs:restriction base='xs:unsignedInt'>
+     <xs:minInclusive value='50'/>
+    </xs:restriction>
+   </xs:simpleType>
+  </xs:attribute>
+  <xs:attribute name='retr' use='optional' default='1'>
+   <xs:simpleType>
+    <xs:restriction base='xs:unsignedInt'>
+     <xs:minInclusive value='1'/>
+    </xs:restriction>
+   </xs:simpleType>
+  </xs:attribute>
+  </xs:complexType>
+ </xs:element>
+
+ <xs:element name='threads'>
+  <xs:complexType>
+   <xs:sequence>
+     <xs:element ref='thread' maxOccurs='unbounded'/>
+   </xs:sequence>
+  </xs:complexType>
+ </xs:element>
+
+ <xs:element name='thread'>
+  <xs:complexType>
+  <xs:attribute name='type' use='required'>
+   <xs:simpleType>
+    <xs:restriction base='xs:string'>
+     <xs:enumeration value='wmi'/>
+     <xs:enumeration value='snmp'/>
+    </xs:restriction>
+   </xs:simpleType>
+  </xs:attribute>
+  <xs:attribute name='caption' type='xs:string' use='required'/>
+  <xs:attribute name='tupdt' use='required'>
+   <xs:simpleType>
+    <xs:restriction base='xs:unsignedInt'>
+     <xs:minInclusive value='50'/>
+    </xs:restriction>
+   </xs:simpleType>
+  </xs:attribute>
+  <xs:attribute name='mupdt' use='required'>
+   <xs:simpleType>
+    <xs:restriction base='xs:unsignedInt'>
+     <xs:minInclusive value='500'/>
+    </xs:restriction>
+   </xs:simpleType>
+  </xs:attribute>
+  <xs:attribute name='logid' type='d3IdType' use='required'/>
+  <xs:attribute name='script' type='xs:string'/>
+  <xs:attribute name='output' type='xs:string'/>
+  </xs:complexType>
+ </xs:element>
+ 
+ <xs:element name='network'>
+  <xs:complexType>
+  <xs:attribute name='id' type='d3IdType' use='required'/>
+  <xs:attribute name='port_r' type='netportType' use='required'/>
+  <xs:attribute name='port_t' type='netportType' use='required'/>
+  <xs:attribute name='logid' type='d3IdType' use='required'/>
+  </xs:complexType>
+ </xs:element>
+
+ <xs:element name='clients'>
+  <xs:complexType>
+   <xs:sequence>
+     <xs:element ref='client' maxOccurs='unbounded'/>
+   </xs:sequence>
+  </xs:complexType>
+ </xs:element>
+
+ <xs:element name='client'>
+  <xs:complexType>
+  <xs:attribute name='id' type='d3IdType' use='required'/>
+  <xs:attribute name='addr_b' type='netaddrType' use='required'/>
+  <xs:attribute name='addr_r' type='netaddrType' use='required'/>
+  <xs:attribute name='port' type='netportType'/>
+  <xs:attribute name='caption' type='xs:string' use='required'/>
+  </xs:complexType>
+ </xs:element>
+
+ <xs:element name='logs'>
+  <xs:complexType>
+   <xs:sequence>
+     <xs:element ref='log' minOccurs='0' maxOccurs='unbounded'/>
+   </xs:sequence>
+  </xs:complexType>
+ </xs:element>
+
+ <xs:element name='log'>
+  <xs:complexType>
+  <xs:attribute name='id' type='d3IdType' use='required'/>
+  <xs:attribute name='caption' type='xs:string' use='required'/>
+  </xs:complexType>
+ </xs:element>
+
+ <xs:group name='baseContent'>
+  <xs:sequence>
+   <xs:element ref='snmp' minOccurs='0' maxOccurs='1'/>
+   <xs:element ref='calc' minOccurs='0' maxOccurs='1'/>
+   <xs:element ref='wmi' minOccurs='0' maxOccurs='1'/>
+  </xs:sequence>
+ </xs:group>
+
+ <xs:element name='base'>
+  <xs:complexType>
+   <xs:sequence>
+    <xs:group ref='baseContent' minOccurs='0' maxOccurs='unbounded'/>
+   </xs:sequence>
+  </xs:complexType>
+ </xs:element>
+
+ <xs:attributeGroup name='reqParAttr'>
+  <xs:attribute name='id' use='required'>
+   <xs:simpleType>
+    <xs:restriction base='xs:string'>
+     <xs:pattern value='\d{9}'/>
+    </xs:restriction>
+   </xs:simpleType>
+  </xs:attribute>
+  <xs:attribute name='ptype' use='required'>
+   <xs:simpleType>
+    <xs:restriction base='xs:string'>
+     <xs:enumeration value='value'/>
+     <xs:enumeration value='delayed'/>
+    </xs:restriction>
+   </xs:simpleType>
+  </xs:attribute>
+  <xs:attribute name='vtype' use='required'>
+   <xs:simpleType>
+    <xs:restriction base='xs:string'>
+     <xs:enumeration value='int'/>
+     <xs:enumeration value='string'/>
+     <xs:enumeration value='double'/>
+     <xs:enumeration value='short'/>
+    </xs:restriction>
+   </xs:simpleType>
+  </xs:attribute>
+ </xs:attributeGroup>
+
+ <xs:attributeGroup name='reqQueryParAttr'>
+  <xs:attribute name='update' use='required'>
+   <xs:simpleType>
+    <xs:restriction base='xs:unsignedInt'>
+     <xs:minInclusive value='100'/>
+    </xs:restriction>
+   </xs:simpleType> 
+  </xs:attribute>
+  <xs:attribute name='addr' use='required'/>
+ </xs:attributeGroup>
+
+ <xs:element name='snmp'>
+  <xs:complexType>
+   <xs:sequence>
+     <xs:element ref='rule' minOccurs='0' maxOccurs='unbounded'/>
+   </xs:sequence>
+  <xs:attributeGroup ref='reqParAttr'/>
+  <xs:attributeGroup ref='reqQueryParAttr'/>
+  <xs:attribute name='math'/>
+  <xs:attribute name='rexp'/>
+  <xs:attribute name='fval'/>
+  <xs:attribute name='gval'/>
+  <xs:attribute name='sdep'/>
+  <xs:attribute name='send' type='boolType' default="yes"/>
+  <xs:attribute name='delay' type='xs:unsignedInt' default="0"/>
+  <xs:attribute name='start' type='xs:int' default="0"/>
+  <xs:attribute name='invert' type='boolType' default="no"/>
+  </xs:complexType>
+ </xs:element>
+
+ <xs:element name='wmi'>
+  <xs:complexType>
+   <xs:sequence>
+     <xs:element ref='rule' minOccurs='0' maxOccurs='unbounded'/>
+   </xs:sequence>
+  <xs:attributeGroup ref='reqParAttr'/>
+  <xs:attributeGroup ref='reqQueryParAttr'/>
+  <xs:attribute name='prop' use='required'/>
+  <xs:attribute name='math'/>
+  <xs:attribute name='rexp'/>
+  <xs:attribute name='send' type='boolType' default="yes"/>
+  <xs:attribute name='sync' type='boolType' default="no"/>
+  <xs:attribute name='delay' type='xs:unsignedInt' default="0"/>
+  <xs:attribute name='start' type='xs:int' default="0"/>
+  </xs:complexType>
+ </xs:element>
+
+
+ <xs:element name='calc'>
+  <xs:complexType>
+   <xs:sequence>
+     <xs:element ref='rule' minOccurs='0' maxOccurs='unbounded'/>
+     <xs:element ref='item' minOccurs='0' maxOccurs='unbounded'/>
+     <xs:element ref='logic' minOccurs='0' maxOccurs='unbounded'/>
+   </xs:sequence>
+  <xs:attributeGroup ref='reqParAttr'/>
+  <xs:attribute name='math' use='required'/>
+  <xs:attribute name='send' type='boolType' default="yes"/>
+  </xs:complexType>
+ </xs:element>
+
+ <xs:element name='rule'>
+  <xs:complexType>
+  <xs:attribute name='key' use='required'/>
+  <xs:attribute name='value' use='required'/>
+  </xs:complexType>
+ </xs:element>
+
+ <xs:element name='item'>
+  <xs:complexType>
+  <xs:attribute name='name' use='required'/>
+  <xs:attribute name='type' use='required'/>
+  </xs:complexType>
+ </xs:element>
+
+ <xs:simpleType name='compareOpType'>
+  <xs:restriction base='xs:string'>
+   <xs:enumeration value='&gt;'/>
+   <xs:enumeration value='&lt;'/>
+   <xs:enumeration value='&gt;='/>
+   <xs:enumeration value='&lt;='/>
+   <xs:enumeration value='=='/>
+  </xs:restriction>
+ </xs:simpleType>
+
+ <xs:simpleType name='logicOpType'>
+  <xs:restriction base='xs:string'>
+   <xs:enumeration value='&amp;&amp;'/>
+   <xs:enumeration value='||'/>
+  </xs:restriction>
+ </xs:simpleType>
+
+ <xs:element name='logic'>
+  <xs:complexType>
+  <xs:attribute name='opCompare' type='compareOpType' use='required'/>
+  <xs:attribute name='val' use='required'/>
+  <xs:attribute name='opLogic' type='logicOpType' default='&amp;&amp;'/>
+  </xs:complexType>
+ </xs:element>
+
+</xs:schema>

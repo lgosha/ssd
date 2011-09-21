@@ -1,0 +1,61 @@
+Summary: shws diagnostic viewer component
+Name: ddv
+Version: %VERSION%
+Release: 1
+Group: Development
+License: GPL
+Prefix: %{_prefix}
+#BuildPrereq:
+#Requires: 
+BuildRoot: %{_tmppath}/%{name}-%{version}-root
+Source: %{name}-%{version}.tar.bz2
+Vendor: Undefined
+Packager: Undefined
+
+%description
+shws diagnostic viewer component
+
+%prep
+
+%setup -q
+
+%build
+/usr/bin/qmake;
+make
+
+%install
+rm -rf ${RPM_BUILD_ROOT}
+
+mkdir -p $RPM_BUILD_ROOT/usr/bin
+cp ./ddv.starter $RPM_BUILD_ROOT/usr/bin/ddv.starter
+mkdir -p $RPM_BUILD_ROOT/opt/ddv
+mkdir -p $RPM_BUILD_ROOT/opt/ddv/{bin,etc,img,log}
+mkdir -p $RPM_BUILD_ROOT/opt/ddv/img/16x16
+cp ./bin/ddv $RPM_BUILD_ROOT/opt/ddv/bin
+cp ./etc/* $RPM_BUILD_ROOT/opt/ddv/etc
+cp ./img/16x16/* $RPM_BUILD_ROOT/opt/ddv/img/16x16
+
+%clean
+rm -rf ${RPM_BUILD_ROOT}
+
+%files
+%defattr(-,root,root)
+%dir /opt/ddv
+%dir /opt/ddv/bin
+%dir /opt/ddv/etc
+%dir /opt/ddv/log
+%dir /opt/ddv/img/16x16
+/opt/ddv/bin/*
+/opt/ddv/etc/*
+/opt/ddv/img/16x16/*
+
+/usr/bin/ddv.starter
+
+%post
+
+%preun
+
+%postun
+rm -rf /opt/ddv
+
+%changelog

@@ -1,0 +1,3 @@
+#!/bin/bash
+
+service dsc start `pwd` /etc/dsc/dsc.xml

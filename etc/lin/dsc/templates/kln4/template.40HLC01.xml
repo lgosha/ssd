@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="WINDOWS-1251"?>
+<config  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation='dsc.xsd' codepage="utf8">
+
+	<!-- директории программы -->
+	<dirs>
+		<dir name="etc" path="etc" />
+		<dir name="log" path="log" />
+		<dir name="tmp" path="tmp" />
+	</dirs>
+
+	<!-- параметры отладки (при использовании) --> 
+	<debug level="8" log="no" />
+
+	<!-- сетевые настройки программы связи с dac (сбор данных) -->
+	<network_c id="001" port_r="3726" port_t="3725" updt="500" lupdt="1000" vupdt="1000" logid="001" />
+	<!-- сетевые настройки программы связи с dgw (передача данных) -->
+	<network_s id="001" port_r="3728" port_t="3727" logid="002" />
+
+	<!-- перечень и настройки источников данных --> 
+	<servers>
+		<server id="002" addr_b="192.168.1.13"  addr_r="192.168.1.13" port="3728" link="yes" caption="" />
+		<server id="003" addr_b="192.168.1.11"  addr_r="192.168.1.11" port="3728" link="yes" caption="" />
+		<server id="110" addr_b="192.168.1.9"   addr_r="192.168.1.9"  caption="" />
+		<server id="120" addr_b="192.168.1.10"  addr_r="192.168.1.10" caption="" />
+		<server id="131" addr_b="192.168.1.1"   addr_r="192.168.1.1"  caption="" />
+		<server id="132" addr_b="192.168.1.2"   addr_r="192.168.1.2"  caption="" />
+		<server id="141" addr_b="192.168.1.3"   addr_r="192.168.1.3"  caption="" />
+		<server id="142" addr_b="192.168.1.4"   addr_r="192.168.1.4"  caption="" />
+		<server id="151" addr_b="192.168.1.5"   addr_r="192.168.1.5"  caption="" />
+		<server id="152" addr_b="192.168.1.6"   addr_r="192.168.1.6"  caption="" />
+		<server id="161" addr_b="192.168.1.7"   addr_r="192.168.1.7"  caption="" />
+		<server id="162" addr_b="192.168.1.8"   addr_r="192.168.1.8"  caption="" />
+		<server id="201" addr_b="192.168.1.12"  addr_r="192.168.1.12" caption="" />
+		<server id="202" addr_b="192.168.1.13"  addr_r="192.168.1.13" caption="" />
+		<server id="301" addr_b="192.168.1.11"  addr_r="192.168.1.11" caption="" />
+	</servers>
+
+	<!-- перечень и настройки клиентов, которые могут получить данные от программы --> 
+	<clients>
+		<client id="002" addr_b="192.168.1.13" addr_r="192.168.1.13" port="3726" caption="40HLC02.dsc" />
+		<client id="003" addr_b="192.168.1.11" addr_r="192.168.1.11" port="3726" caption="40HLD01.dsc" />
+		<client id="801" addr_b="192.168.1.51" addr_r="192.168.1.51" caption="default.viewer" />
+	</clients>
+	
+	<!-- перечень и настройки потоков логирования --> 
+	<logs>
+		<log id="001" caption="udoclient"/>
+		<log id="002" caption="udpserver"/>
+	</logs>
+	
+	<!-- база сигналов --> 
+	<base>
+	%BASE
+	</base>	
+
+</config>

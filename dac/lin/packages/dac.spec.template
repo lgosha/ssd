@@ -1,0 +1,74 @@
+Summary: shws diagnostic server component
+Name: dac
+Version: %VERSION%
+Release: 1
+Group: System Environment/Daemons
+License: GPL
+Prefix: %{_prefix}
+#BuildPrereq:
+Requires: net-snmp
+BuildRoot: %{_tmppath}/%{name}-%{version}-root
+Source: %{name}-%{version}.tar.bz2
+Vendor: Undefined
+Packager: Undefined
+
+%description
+shws diagnostic server component
+
+%prep
+
+%setup -q
+
+%build
+/usr/bin/qmake;
+make
+
+%install
+rm -rf ${RPM_BUILD_ROOT}
+
+mkdir -p $RPM_BUILD_ROOT/opt/dac
+mkdir -p $RPM_BUILD_ROOT/opt/dac/{bin,etc,log,init.d}
+cp ./bin/dac $RPM_BUILD_ROOT/opt/dac/bin
+cp ./etc/* $RPM_BUILD_ROOT/opt/dac/etc
+cp ./init.d/* $RPM_BUILD_ROOT/opt/dac/init.d
+cp configure $RPM_BUILD_ROOT/opt/dac
+
+mkdir -p $RPM_BUILD_ROOT/{etc,etc/dac/}
+
+mkdir -p $RPM_BUILD_ROOT/usr/share/snmp/plugins
+cp ./plugins/ntpMIB.so $RPM_BUILD_ROOT/usr/share/snmp/plugins
+
+%clean
+rm -rf ${RPM_BUILD_ROOT}
+
+%files
+%defattr(-,root,root)
+%dir /opt/dac
+%dir /opt/dac/bin
+%dir /opt/dac/etc
+%dir /opt/dac/init.d
+%dir /opt/dac/log
+/opt/dac/bin/*
+/opt/dac/etc/*
+/opt/dac/init.d/*
+%dir /etc/dac
+/opt/dac/configure
+%dir /usr/share/snmp/plugins
+/usr/share/snmp/plugins/ntpMIB.so
+
+%post
+service snmpd restart
+/opt/dac/configure
+
+%preun
+service snmpd stop
+/sbin/service dac stop > /dev/null 2>/dev/null || :
+/sbin/chkconfig --del dac
+
+%postun
+rm -rf /etc/dac
+rm -f /etc/init.d/dac
+rm -rf /opt/dac
+service snmpd start
+
+%changelog

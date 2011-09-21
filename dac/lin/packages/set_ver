@@ -1,0 +1,13 @@
+#!/usr/bin/perl
+
+$PACKAGE = $ARGV[0];
+$VERSION = $ARGV[1];
+
+open( I_FILE, '<'.$PACKAGE.'.spec.template' );
+open( O_FILE, '>'.$PACKAGE.'.spec' );
+while( <I_FILE> ) {
+    $_ =~ s/%VERSION%/$VERSION/ if( $_ =~ /%VERSION%/ );
+    print O_FILE $_;
+}
+close( I_FILE );
+close( O_FILE );

@@ -1,0 +1,66 @@
+Summary: shws diagnostic common component
+Name: dsc
+Version: %VERSION%
+Release: 1
+Group: System Environment/Daemons
+License: GPL
+Prefix: %{_prefix}
+#BuildPrereq:
+#Requires: 
+BuildRoot: %{_tmppath}/%{name}-%{version}-root
+Source: %{name}-%{version}.tar.bz2
+Vendor: Undefined
+Packager: Undefined
+
+%description
+shws diagnostic common component
+
+%prep
+
+%setup -q
+
+%build
+/usr/bin/qmake;
+make
+
+%install
+rm -rf ${RPM_BUILD_ROOT}
+
+mkdir -p $RPM_BUILD_ROOT/opt/dsc
+mkdir -p $RPM_BUILD_ROOT/opt/dsc/{bin,etc,log,init.d}
+cp ./bin/dsc $RPM_BUILD_ROOT/opt/dsc/bin
+cp ./etc/* $RPM_BUILD_ROOT/opt/dsc/etc
+cp ./init.d/* $RPM_BUILD_ROOT/opt/dsc/init.d
+cp configure $RPM_BUILD_ROOT/opt/dsc
+
+mkdir -p $RPM_BUILD_ROOT/{etc,etc/dsc/}
+
+%clean
+rm -rf ${RPM_BUILD_ROOT}
+
+%files
+%defattr(-,root,root)
+%dir /opt/dsc
+%dir /opt/dsc/bin
+%dir /opt/dsc/etc
+%dir /opt/dsc/init.d
+%dir /opt/dsc/log
+/opt/dsc/bin/*
+/opt/dsc/etc/*
+/opt/dsc/init.d/*
+%dir /etc/dsc
+/opt/dsc/configure
+
+%post
+/opt/dsc/configure
+
+%preun
+/sbin/service dsc stop > /dev/null 2>/dev/null || :
+/sbin/chkconfig --del dsc
+
+%postun
+rm -rf /etc/dsc
+rm -f /etc/init.d/dsc
+rm -rf /opt/dsc
+
+%changelog

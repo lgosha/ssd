@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="WINDOWS-1251" standalone="no" ?>
+<!DOCTYPE config SYSTEM "ddv.dtd">
+<config codepage="cp1251">
+
+	<section name="dir">
+		<par name="etc" value="etc" />
+		<par name="log" value="log" />
+		<par name="tmp" value="tmp" />
+	</section>
+
+	<section name="view">
+		<par name="x"		value="5"	/>
+		<par name="y"		value="25"	/>
+		<par name="width"	value="800"	/>
+		<par name="height"	value="600"	/>
+	</section>
+
+	<section name="debug">
+		<par name="level" value="8"   />
+		<par name="log"   value="yes" />
+	</section>
+
+	<section name="dynamic">
+		<par name="update" value="1000" />
+	</section>
+
+	<network id="801" port="3727"/>
+
+	<servers>
+		<server id="301" addr="10.27.14.73" port="3725" caption="40HLD01.dac" />
+		<server id="201" addr="10.27.14.71" port="3725" caption="40HLC01.dac" />
+		<server id="202" addr="10.27.14.72" port="3725" caption="40HLC02.dac" />
+		<server id="001" addr="10.27.14.71" port="3728" caption="40HLC01.dsc" />
+		<server id="002" addr="10.27.14.72" port="3728" caption="40HLC02.dsc" />
+		<server id="003" addr="10.27.14.73" port="3728" caption="40HLD01.dsc" />
+	</servers>
+
+</config>

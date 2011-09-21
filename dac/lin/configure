@@ -1,0 +1,61 @@
+#!/usr/bin/perl -w
+
+# manual selection mode
+my $MANUAL = 0;
+
+# process command line parameters
+for($i=0;$i<scalar(@ARGV);$i++) {
+    if($ARGV[$i] eq "-m") {
+	$MANUAL = 1;
+	next;
+    }
+}
+
+# detect hostname
+my $HOSTNAME = '';
+if( !$MANUAL ) {
+    $HOSTNAME = `hostname`; chomp $HOSTNAME;
+}
+# read configuration files set
+my $DIR = '/opt/dac';
+opendir( DH, $DIR."/etc" ); my @CONFS = grep { !/^\./ && /\.xml/ } readdir( DH ); closedir( DH );
+
+# *** detect file
+my $file = '';
+
+# if auto mode, try find file in set
+if( !$MANUAL ) {
+    foreach( @CONFS ) {
+	if( $_ =~ /$HOSTNAME/ ) { $file = $_; last; }
+    }
+}
+# if manual mode, provide user selection
+else {
+    print "Select configuration:\n";
+    my $nCount = 0;
+    foreach( sort @CONFS ) {
+    	print sprintf( "%02d", ++$nCount ), '. ', $_, "\n";
+    }
+    $file = <STDIN>; chomp $file;
+    if( $file < 1 || $file > scalar(@CONFS)  ) {
+	print "error: wrong selection: $file\n";
+	exit 1;
+    }
+}
+
+# copy files
+if( length($file) ) {
+    # set configuration file
+    my $PATH = '/etc/dac';
+    system( 'mkdir -p '.$PATH ) if( !(-d $PATH) );
+    system( "cp -f $DIR/etc/$file $PATH" );
+    system( "mv -f $PATH/$file $PATH/dac.xml" );
+    system( "cp -f $DIR/etc/dac.xsd $PATH" );
+    # set command script
+    system( "cp -f $DIR/init.d/dac /etc/init.d" );
+    system( "chkconfig --add dac" );
+}
+# file not found
+else {
+    print "error: can't find configuration file", $MANUAL ? '' : " for $HOSTNAME", ", execute /opt/dac/configure manually with key -m\n";
+}

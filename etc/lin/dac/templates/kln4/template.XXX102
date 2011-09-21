@@ -1,0 +1,605 @@
+	<!-- БС %CODE102 -->
+		<!-- %CODE102001 состояние связи с устройством числ. -->
+		<snmp		id	= "%CODE102001" 
+				ptype	= "value"
+				vtype   = "int"
+				fval    = "1"
+				gval    = "0"
+				addr    = ".1.3.6.1.2.1.1.3.0" 
+				update  = "1000" >
+		</snmp>
+
+		<!-- %CODE102501 состояние связи с устройством симв. -->
+		<calc	 	id     = "%CODE102501" 
+				ptype  = "value"
+				vtype  = "string"
+				math   = ",%CODE102001">
+
+			<rule key="1" value="нет"  />
+			<rule key="0" value="есть" />
+		</calc>
+
+		<!-- %CODE102002 объем свободной физической памяти, Кбайт -->
+		<calc	 	id     = "%CODE102002"
+				ptype  = "value"
+				vtype  = "int"
+				math   = ",%CODE102502 - ,%CODE102503">
+		</calc>
+
+		<!-- %CODE102502 объем физической памяти, Кбайт -->
+		<snmp		id	= "%CODE102502" 
+				ptype	= "value"
+				vtype   = "int"
+				addr    = ".1.3.6.1.2.1.25.2.3.1.5.4" 
+				math    = "* ;65535 / ;1024"
+				rexp    = ".*\s+"
+				sdep    = "%CODE102001"
+				send    = "no"
+				update  = "60000" >
+		</snmp>
+
+		<!-- %CODE102503 объем использованной физической памяти, Кбайт -->
+		<snmp		id	= "%CODE102503" 
+				ptype	= "value"
+				vtype   = "int"
+				addr    = ".1.3.6.1.2.1.25.2.3.1.6.4" 
+				math    = "* ;65535 / ;1024"
+				rexp    = ".*\s+"
+				sdep    = "%CODE102001"
+				send    = "no"
+				update  = "60000" >
+		</snmp>
+
+		<!-- %CODE102510 объем свободной физической памяти меньше 50 Мб -->
+		<calc	 	id     = "%CODE102510" 
+				ptype  = "value"
+				vtype  = "short"
+				math   = ",%CODE102002">
+
+			<logic opCompare="&lt;" val="51200"/>
+		</calc>
+
+		<!-- %CODE102511 объем свободной физической памяти меньше 10 Мб -->
+		<calc	 	id     = "%CODE102511" 
+				ptype  = "value"
+				vtype  = "short"
+				math   = ",%CODE102002">
+
+			<logic opCompare="&lt;" val="10240"/>
+		</calc>
+
+		<!-- %CODE102003 объем свободного пространства раздела 1, Мбайт -->
+		<calc	 	id     = "%CODE102003" 
+				ptype  = "value"
+				vtype  = "double"
+				math   = ",%CODE102504 -,%CODE102505">
+		</calc>
+
+		<!-- %CODE102504 объем раздела 1, Мбайт -->
+		<snmp		id	= "%CODE102504" 
+				ptype	= "value"
+				vtype   = "double"
+				addr    = ".1.3.6.1.2.1.25.2.3.1.5.1" 
+				rexp    = ".*\s+"
+				sdep    = "%CODE102001"
+				math    = "* ;4096 / ;1024 / ;1024"
+				send    = "no"
+				update  = "60000" >
+		</snmp>
+
+		<!-- %CODE102505 объем использованного пространства раздела 1, Мбайт -->
+		<snmp		id	= "%CODE102505" 
+				ptype	= "value"
+				vtype   = "double"
+				addr    = ".1.3.6.1.2.1.25.2.3.1.6.1" 
+				rexp    = ".*\s+"
+				sdep    = "%CODE102001"
+				math    = "* ;4096 / ;1024 / ;1024"
+				send    = "no"
+				update  = "60000" >
+    		</snmp>
+
+		<!-- %CODE102512 объем свободного пространства раздела 1 меньше 100 Мбайт -->
+		<calc	 	id     = "%CODE102512" 
+				ptype  = "value"
+				vtype  = "short"
+				math   = ",%CODE102003">
+
+			<logic opCompare="&lt;" val="100"/>
+		</calc>
+
+		<!-- %CODE102513 объем свободного пространства раздела 1 меньше 50 Мбайт -->
+		<calc	 	id     = "%CODE102513" 
+				ptype  = "value"
+				vtype  = "short"
+				math   = ",%CODE102003">
+
+			<logic opCompare="&lt;" val="50"/>
+		</calc>
+
+		<!-- %CODE102004 объем свободного пространства раздела 2, Мбайт -->
+		<calc	 	id     = "%CODE102004" 
+				ptype  = "value"
+				vtype  = "double"
+				math   = ",%CODE102506 -,%CODE102507">
+		</calc>
+
+		<!-- %CODE102506 объем раздела 2, Мбайт -->
+		<snmp		id	= "%CODE102506" 
+				ptype	= "value"
+				vtype   = "double"
+				addr    = ".1.3.6.1.2.1.25.2.3.1.5.2" 
+				rexp    = ".*\s+"
+				sdep    = "%CODE102001"
+				math    = "* ;4096 / ;1024 / ;1024"
+				send    = "no"
+				update  = "60000" >
+		</snmp>
+
+		<!-- %CODE102507 объем использованного пространства раздела 2, Мбайт -->
+		<snmp		id	= "%CODE102507" 
+				ptype	= "value"
+				vtype   = "double"
+				addr    = ".1.3.6.1.2.1.25.2.3.1.6.2" 
+				rexp    = ".*\s+"
+				sdep    = "%CODE102001"
+				math    = "* ;4096 / ;1024 / ;1024"
+				send    = "no"
+				update  = "60000" >
+    		</snmp>
+
+		<!-- %CODE102514 объем свободного пространства раздела 2 меньше 100 Мбайт -->
+		<calc	 	id     = "%CODE102514" 
+				ptype  = "value"
+				vtype  = "short"
+				math   = ",%CODE102004">
+
+			<logic opCompare="&lt;" val="100"/>
+		</calc>
+
+		<!-- %CODE102515 объем свободного пространства раздела 2 меньше 50 Мбайт -->
+		<calc	 	id     = "%CODE102515" 
+				ptype  = "value"
+				vtype  = "short"
+				math   = ",%CODE102004">
+
+			<logic opCompare="&lt;" val="50"/>
+		</calc>
+
+		<!-- %CODE102008 состояние сетевого интерфейса 1 числ. -->
+		<snmp		id	= "%CODE102008" 
+				ptype	= "value"
+				vtype   = "int"
+				rexp    = ".*\s+"
+				addr    = ".1.3.6.1.4.1.343.2.7.2.2.2.1.1.4.8" 
+				fval	= "1"
+				sdep    = "%CODE102001"
+				update  = "5000" >
+
+			<rule key="10"   value="0" />
+			<rule key="100"  value="0" />
+			<rule key="1000" value="0" />
+		</snmp>
+
+		<!-- %CODE102108 состояние сетевого интерфейса 1 симв. -->
+		<calc	 	id     = "%CODE102108" 
+				ptype  = "value"
+				vtype  = "string"
+				math   = ",%CODE102008">
+
+			<rule key="1" value="отключен"  />
+			<rule key="0" value="включен" />
+		</calc>
+
+		<!-- %CODE102009 состояние сетевого интерфейса 2 числ. -->
+		<snmp		id	= "%CODE102009" 
+				ptype	= "value"
+				vtype   = "int"
+				rexp    = ".*\s+"
+				addr    = ".1.3.6.1.4.1.343.2.7.2.2.2.1.1.4.10" 
+				fval	= "1"
+				sdep    = "%CODE102001"
+				update  = "5000" >
+
+			<rule key="10"   value="0" />
+			<rule key="100"  value="0" />
+			<rule key="1000" value="0" />
+		</snmp>
+
+		<!-- %CODE102109 состояние сетевого интерфейса 2 симв. -->
+		<calc	 	id     = "%CODE102109" 
+				ptype  = "value"
+				vtype  = "string"
+				math   = ",%CODE102009">
+
+			<rule key="1" value="отключен"  />
+			<rule key="0" value="включен" />
+		</calc>
+
+		<!-- %CODE102010 состояние сетевого интерфейса 3 числ. -->
+		<snmp		id	= "%CODE102010" 
+				ptype	= "value"
+				vtype   = "int"
+				rexp    = ".*\s+"
+				addr    = ".1.3.6.1.4.1.343.2.7.2.2.2.1.1.4.12" 
+				fval	= "1"
+				sdep    = "%CODE102001"
+				update  = "5000" >
+
+			<rule key="10"   value="0" />
+			<rule key="100"  value="0" />
+			<rule key="1000" value="0" />
+		</snmp>
+		
+		<!-- %CODE102110 состояние сетевого интерфейса 3 симв. -->
+		<calc	 	id     = "%CODE102110" 
+				ptype  = "value"
+				vtype  = "string"
+				math   = ",%CODE102010">
+
+			<rule key="1" value="отключен"  />
+			<rule key="0" value="включен" />
+		</calc>
+
+		<!-- %CODE102011 состояние сетевого интерфейса 4 числ. -->
+		<snmp		id	= "%CODE102011" 
+				ptype	= "value"
+				vtype   = "int"
+				rexp    = ".*\s+"
+				addr    = ".1.3.6.1.4.1.343.2.7.2.2.2.1.1.4.14" 
+				fval	= "1"
+				sdep    = "%CODE102001"
+				update  = "5000" >
+
+			<rule key="10"   value="0" />
+			<rule key="100"  value="0" />
+			<rule key="1000" value="0" />
+		</snmp>
+
+		<!-- %CODE102111 состояние сетевого интерфейса 4 симв. -->
+		<calc	 	id     = "%CODE102111" 
+				ptype  = "value"
+				vtype  = "string"
+				math   = ",%CODE102011">
+
+			<rule key="1" value="отключен"  />
+			<rule key="0" value="включен" />
+		</calc>
+
+		<!-- %CODE102012 состояние сетевого интерфейса 5 числ. -->
+		<snmp		id	= "%CODE102012" 
+				ptype	= "value"
+				vtype   = "int"
+				rexp    = ".*\s+"
+				addr    = ".1.3.6.1.4.1.343.2.7.2.2.2.1.1.4.16" 
+				fval	= "1"
+				sdep    = "%CODE102001"
+				update  = "5000" >
+
+			<rule key="10"   value="0" />
+			<rule key="100"  value="0" />
+			<rule key="1000" value="0" />
+		</snmp>
+
+		<!-- %CODE102112 состояние сетевого интерфейса 5 симв. -->
+		<calc	 	id     = "%CODE102112" 
+				ptype  = "value"
+				vtype  = "string"
+				math   = ",%CODE102012">
+
+			<rule key="1" value="отключен"  />
+			<rule key="0" value="включен" />
+		</calc>
+
+		<!-- %CODE102013 состояние сетевого интерфейса 6 числ. -->
+		<snmp		id	= "%CODE102013" 
+				ptype	= "value"
+				vtype   = "int"
+				rexp    = ".*\s+"
+				addr    = ".1.3.6.1.4.1.343.2.7.2.2.2.1.1.4.18" 
+				fval	= "1"
+				sdep    = "%CODE102001"
+				update  = "5000" >
+
+			<rule key="10"   value="0" />
+			<rule key="100"  value="0" />
+			<rule key="1000" value="0" />
+		</snmp>
+
+		<!-- %CODE102113 состояние сетевого интерфейса 6 симв. -->
+		<calc	 	id     = "%CODE102113" 
+				ptype  = "value"
+				vtype  = "string"
+				math   = ",%CODE102013">
+
+			<rule key="1" value="отключен"  />
+			<rule key="0" value="включен" />
+		</calc>
+
+		<!-- %CODE102014 состояние сетевого интерфейса 7 числ. -->
+		<snmp		id	= "%CODE102014" 
+				ptype	= "value"
+				vtype   = "int"
+				rexp    = ".*\s+"
+				addr    = ".1.3.6.1.4.1.343.2.7.2.2.2.1.1.4.20" 
+				fval	= "1"
+				sdep    = "%CODE102001"
+				update  = "5000" >
+
+			<rule key="10"   value="0" />
+			<rule key="100"  value="0" />
+			<rule key="1000" value="0" />
+		</snmp>
+
+		<!-- %CODE102114 состояние сетевого интерфейса 7 симв. -->
+		<calc	 	id     = "%CODE102114" 
+				ptype  = "value"
+				vtype  = "string"
+				math   = ",%CODE102014">
+
+			<rule key="1" value="отключен"  />
+			<rule key="0" value="включен" />
+		</calc>
+
+		<!-- %CODE102015 состояние сетевого интерфейса 8 числ. -->
+		<snmp		id	= "%CODE102015" 
+				ptype	= "value"
+				vtype   = "int"
+				rexp    = ".*\s+"
+				addr    = ".1.3.6.1.4.1.343.2.7.2.2.2.1.1.4.22" 
+				fval	= "1"
+				sdep    = "%CODE102001"
+				update  = "5000" >
+
+			<rule key="10"   value="0" />
+			<rule key="100"  value="0" />
+			<rule key="1000" value="0" />
+		</snmp>
+
+		<!-- %CODE102115 состояние сетевого интерфейса 8 симв. -->
+		<calc	 	id     = "%CODE102115" 
+				ptype  = "value"
+				vtype  = "string"
+				math   = ",%CODE102015">
+
+			<rule key="1" value="отключен"  />
+			<rule key="0" value="включен" />
+		</calc>
+
+		<!-- %CODE102018 состояние связи сетевого интерфейса 1 числ. -->
+		<snmp		id	= "%CODE102018" 
+				ptype	= "value"
+				vtype   = "int"
+				rexp    = ".*\s+"
+				addr    = ".1.3.6.1.4.1.343.2.7.2.2.2.1.1.2.8" 
+				fval	= "1"
+				sdep    = "%CODE102001"
+				update  = "5000" >
+		</snmp>
+
+		<!-- %CODE102118 состояние связи сетевого интерфейса 1 симв. -->
+		<calc	 	id     = "%CODE102118" 
+				ptype  = "value"
+				vtype  = "string"
+				math   = ",%CODE102018">
+
+			<rule key="1" value="нет"  />
+			<rule key="0" value="есть" />
+		</calc>
+
+		<!-- %CODE102019 состояние связи сетевого интерфейса 2 числ. -->
+		<snmp		id	= "%CODE102019" 
+				ptype	= "value"
+				vtype   = "int"
+				rexp    = ".*\s+"
+				addr    = ".1.3.6.1.4.1.343.2.7.2.2.2.1.1.2.10" 
+				fval	= "1"
+				sdep    = "%CODE102001"
+				update  = "5000" >
+		</snmp>
+
+		<!-- %CODE102119 состояние связи сетевого интерфейса 2 симв. -->
+		<calc	 	id     = "%CODE102119" 
+				ptype  = "value"
+				vtype  = "string"
+				math   = ",%CODE102019">
+
+			<rule key="1" value="нет"  />
+			<rule key="0" value="есть" />
+		</calc>
+
+		<!-- %CODE102020 состояние связи сетевого интерфейса 3 числ. -->
+		<snmp		id	= "%CODE102020" 
+				ptype	= "value"
+				vtype   = "int"
+				rexp    = ".*\s+"
+				addr    = ".1.3.6.1.4.1.343.2.7.2.2.2.1.1.2.12" 
+				fval	= "1"
+				sdep    = "%CODE102001"
+				update  = "5000" >
+		</snmp>
+		
+		<!-- %CODE102120 состояние связи сетевого интерфейса 3 симв. -->
+		<calc	 	id     = "%CODE102120" 
+				ptype  = "value"
+				vtype  = "string"
+				math   = ",%CODE102020">
+
+			<rule key="1" value="нет"  />
+			<rule key="0" value="есть" />
+		</calc>	
+
+		<!-- %CODE102021 состояние связи сетевого интерфейса 4 числ. -->
+		<snmp		id	= "%CODE102021" 
+				ptype	= "value"
+				vtype   = "int"
+				rexp    = ".*\s+"
+				addr    = ".1.3.6.1.4.1.343.2.7.2.2.2.1.1.2.14" 
+				fval	= "1"
+				sdep    = "%CODE102001"
+				update  = "5000" >
+		</snmp>
+
+		<!-- %CODE102121 состояние связи сетевого интерфейса 4 симв. -->
+		<calc	 	id     = "%CODE102121" 
+				ptype  = "value"
+				vtype  = "string"
+				math   = ",%CODE102021">
+
+			<rule key="1" value="нет"  />
+			<rule key="0" value="есть" />
+		</calc>	
+
+		<!-- %CODE102022 состояние связи сетевого интерфейса 5 числ. -->
+		<snmp		id	= "%CODE102022" 
+				ptype	= "value"
+				vtype   = "int"
+				rexp    = ".*\s+"
+				addr    = ".1.3.6.1.4.1.343.2.7.2.2.2.1.1.2.16" 
+				fval	= "1"
+				sdep    = "%CODE102001"
+				update  = "5000" >
+		</snmp>
+
+		<!-- %CODE102122 состояние связи сетевого интерфейса 5 симв. -->
+		<calc	 	id     = "%CODE102122" 
+				ptype  = "value"
+				vtype  = "string"
+				math   = ",%CODE102022">
+
+			<rule key="1" value="нет"  />
+			<rule key="0" value="есть" />
+		</calc>	
+
+		<!-- %CODE102023 состояние связи сетевого интерфейса 6 числ. -->
+		<snmp		id	= "%CODE102023" 
+				ptype	= "value"
+				vtype   = "int"
+				rexp    = ".*\s+"
+				addr    = ".1.3.6.1.4.1.343.2.7.2.2.2.1.1.2.18" 
+				fval	= "1"
+				sdep    = "%CODE102001"
+				update  = "5000" >
+		</snmp>
+
+		<!-- %CODE102123 состояние связи сетевого интерфейса 6 симв. -->
+		<calc	 	id     = "%CODE102123" 
+				ptype  = "value"
+				vtype  = "string"
+				math   = ",%CODE102023">
+
+			<rule key="1" value="нет"  />
+			<rule key="0" value="есть" />
+		</calc>	
+
+		<!-- %CODE102024 состояние связи сетевого интерфейса 7 числ. -->
+		<snmp		id	= "%CODE102024" 
+				ptype	= "value"
+				vtype   = "int"
+				rexp    = ".*\s+"
+				addr    = ".1.3.6.1.4.1.343.2.7.2.2.2.1.1.2.20" 
+				fval	= "1"
+				sdep    = "%CODE102001"
+				update  = "5000" >
+		</snmp>
+
+		<!-- %CODE102124 состояние связи сетевого интерфейса 7 симв. -->
+		<calc	 	id     = "%CODE102124" 
+				ptype  = "value"
+				vtype  = "string"
+				math   = ",%CODE102024">
+
+			<rule key="1" value="нет"  />
+			<rule key="0" value="есть" />
+		</calc>	
+
+		<!-- %CODE102025 состояние связи сетевого интерфейса 8 числ. -->
+		<snmp		id	= "%CODE102025" 
+				ptype	= "value"
+				vtype   = "int"
+				rexp    = ".*\s+"
+				addr    = ".1.3.6.1.4.1.343.2.7.2.2.2.1.1.2.22" 
+				fval	= "1"
+				sdep    = "%CODE102001"
+				update  = "5000" >
+		</snmp>
+
+		<!-- %CODE102125 состояние связи сетевого интерфейса 8 симв. -->
+		<calc	 	id     = "%CODE102125" 
+				ptype  = "value"
+				vtype  = "string"
+				math   = ",%CODE102025">
+
+			<rule key="1" value="нет"  />
+			<rule key="0" value="есть" />
+		</calc>	
+
+		<!-- %CODE102028 источник временной синхронизации -->
+		<snmp		id     = "%CODE102028"
+				ptype  = "value"
+				vtype  = "string"
+				rexp   = ".*\s+...\&quot;...\&quot;"
+				sdep   = "%CODE102001"
+				addr   = ".1.3.6.1.4.1.9999.0.0.1"
+				update = "60000" >
+		</snmp>
+
+		<!-- %CODE102029 смещение системного времени относительно времени источника, мс -->
+		<snmp		id     = "%CODE102029"
+				ptype  = "value"
+				vtype  = "double"
+				rexp   = ".*\s+...\&quot;...\&quot;"
+				sdep   = "%CODE102001"
+				addr   = ".1.3.6.1.4.1.9999.0.0.2"
+				update = "60000" >
+		</snmp>
+
+		<!-- %CODE102508 состояние службы ведения времени числ. -->
+		<snmp		id     = "%CODE102508"
+				ptype  = "value"
+				vtype  = "int"
+				sdep   = "%CODE102001"
+				addr   = ".1.3.6.1.4.1.9999.0.0.3"
+				rexp    = ".*\s+"
+				update = "30000" >
+				
+			<rule key="3" value="0" />
+			<rule key="2" value="1" />
+			<rule key="1" value="2" />
+			<rule key="0" value="4" />
+		</snmp>
+
+		<!-- %CODE102509 состояние службы ведения времени симв. -->
+		<calc		id     = "%CODE102509"
+				ptype  = "value"
+				vtype  = "string"
+				math   = ",%CODE102508">
+
+			<rule key="0" value="синхр." />
+			<rule key="1" value="не синхр." />
+			<rule key="2" value="остановлена" />
+			<rule key="4" value="ошибка" />
+
+		</calc>
+
+		<!-- %CODE102516 абсолютное смещение системного времени больше 5 мс относительно времени источника -->
+		<calc	 	id     = "%CODE102516" 
+				ptype  = "value"
+				vtype  = "short"
+				math   = ",%CODE102029">
+
+			<logic opCompare="&gt;" val="5" opLogic="||" />
+			<logic opCompare="&lt;" val="-5" />
+		</calc>
+
+		<!-- %CODE102521 состояние службы ведения времени (ошибка) -->
+		<calc		id     = "%CODE102521"
+				ptype  = "value"
+				vtype  = "short"
+				math   = ",%CODE102518" >
+				
+			<rule key="0" value="0" />
+			<rule key="1" value="0" />
+			<rule key="2" value="1" />
+			<rule key="4" value="1" />
+		</calc>
