@@ -39,6 +39,20 @@
   </xs:restriction>
  </xs:simpleType>
 
+ <xs:simpleType name='uintType_10'>
+  <xs:restriction base='xs:int'>
+   <xs:minInclusive value='1'/>
+   <xs:maxInclusive value='10'/>
+  </xs:restriction>
+ </xs:simpleType>
+
+ <xs:simpleType name='uintType_5'>
+  <xs:restriction base='xs:int'>
+   <xs:minInclusive value='1'/>
+   <xs:maxInclusive value='5'/>
+  </xs:restriction>
+ </xs:simpleType>
+
  <xs:simpleType name='updateType'>
   <xs:restriction base='xs:int'>
    <xs:minInclusive value='100'/>
@@ -99,6 +113,8 @@
   <xs:attribute name='updt' type='updateType' use='required'/>
   <xs:attribute name='lupdt' type='updateType' use='required'/>
   <xs:attribute name='vupdt' type='updateType' use='required'/>
+  <xs:attribute name='max_clients' type='uintType_10' default='5'/>
+  <xs:attribute name='max_hard' type='uintType_5' default='3'/>
   <xs:attribute name='logid' type='d3IdType' use='required'/>
   </xs:complexType>
  </xs:element>
@@ -225,7 +241,6 @@
     </xs:restriction>
    </xs:simpleType>
   </xs:attribute>
-  <xs:attribute name='invert' type='boolType' default="no"/>
   </xs:complexType>
  </xs:element>
 

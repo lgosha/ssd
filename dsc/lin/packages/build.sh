@@ -1,18 +1,19 @@
 #!/bin/bash
 
 VERSION=`cat version`
-SVN="/usr/local/bin/svn"
+#SVN="/usr/local/bin/svn"
 PACKAGE="dsc"
 set -e
 
-RPMBUILDPLACE=/usr/src/rpm/
+RPMBUILDPLACE=/home/lgosha/rpmbuild
 
 pushd ../
 ./makedist
 popd
 
 pushd ../
-$SVN export . ../$PACKAGE-$VERSION
+#$SVN export . ../$PACKAGE-$VERSION
+cp -rf . ../$PACKAGE-$VERSION
 popd
 
 pushd ../../$PACKAGE-$VERSION/packages

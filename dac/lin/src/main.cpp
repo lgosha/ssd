@@ -279,6 +279,12 @@ int create_logs() {
 
 		pLogDirector = new ULogDirector;
 
+		QDir oDir( pXMLConfig->gattr( "dirs:dir", "name", "log", "path" ) );
+
+		if( !oDir.exists() )
+			if( !oDir.mkpath( oDir.path() ) )
+				throw ex_base( ex_base::error, QString( "can't create log dir '%1'" ).arg( sDir ) );
+
 		aptrMainLog->add("try logs objects");
 		const DOMNode *pNode = pXMLConfig->first(XMLConfig::find(pXMLConfig->root(), "logs", ""));
 		while(pNode) {
