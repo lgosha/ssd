@@ -120,7 +120,7 @@ private:
 	T					  m_typeValue;			 //! значение параметра
 	EParStatus			  m_eStatus;			 //! состояние параметра
 	bool				  m_bToOPC;				 //! 
-	QMap<uint, bool>	  m_mapSendFlags;
+	QMap<uint, bool>	  	  m_mapSendFlags;
 
 	QList<CParameter*>		  m_qlistStatusDepPars;		 //! параметры, состояние которых зависит от значения данного
 

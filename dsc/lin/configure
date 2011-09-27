@@ -1,61 +1,51 @@
 #!/usr/bin/perl -w
 
-# manual selection mode
-my $MANUAL = 0;
-
-# process command line parameters
-for($i=0;$i<scalar(@ARGV);$i++) {
-    if($ARGV[$i] eq "-m") {
-	$MANUAL = 1;
-	next;
-    }
-}
-
 # detect hostname
 my $HOSTNAME = '';
-if( !$MANUAL ) {
-    $HOSTNAME = `hostname`; chomp $HOSTNAME;
-}
-# read configuration files set
+$HOSTNAME = `hostname`; chomp $HOSTNAME;
+
+# read configurations
 my $DIR = '/opt/dsc';
-opendir( DH, $DIR."/etc" ); my @CONFS = grep { !/^\./ && /\.xml/ } readdir( DH ); closedir( DH );
+opendir( DH, $DIR."/etc" ); my @CONFS_VER = grep { !/^\./ && !/\.xsd/ } readdir( DH ); closedir( DH );
+
+print "Select dsc configuration version:\n";
+for( my $i=0;$i<scalar(@CONFS_VER);$i++ ) {
+    print sprintf( "%d", $i+1 ), '. ', $CONFS_VER[$i], "\n";
+}
+$ver = <STDIN>; chomp $ver;
+if( $ver < 1 || $ver > scalar(@CONFS_VER)  ) {
+    print "error: wrong selection: $ver\n";
+    exit 1;
+}
+$ver = $CONFS_VER[$ver-1];
+
+# read configuration files set
+opendir( DH, $DIR."/etc/".$ver ); my @CONFS = grep { !/^\./ && /\.xml/ } readdir( DH ); closedir( DH );
 
 # *** detect file
 my $file = '';
 
-# if auto mode, try find file in set
-if( !$MANUAL ) {
-    foreach( @CONFS ) {
-	if( $_ =~ /$HOSTNAME/ ) { $file = $_; last; }
-    }
+foreach( @CONFS ) {
+    if( $_ =~ /$HOSTNAME/ ) { $file = $_; last; }
 }
-# if manual mode, provide user selection
-else {
-    print "Select configuration:\n";
-    my $nCount = 0;
-    foreach( sort @CONFS ) {
-    	print sprintf( "%02d", ++$nCount ), '. ', $_, "\n";
-    }
-    $file = <STDIN>; chomp $file;
-    if( $file < 1 || $file > scalar(@CONFS)  ) {
-	print "error: wrong selection: $file\n";
-	exit 1;
-    }
+print "Select dsc configuration:\n";
+for( my $i=0;$i<scalar(@CONFS);$i++ ) {
+    print sprintf( "%d", $i+1 ), '. ', $CONFS[$i], "\n";
 }
+print "Apply configuration [$file]: ";
+my $tmp = <STDIN>; chomp $tmp;
+if( $tmp < 1 || $tmp > scalar(@CONFS)  ) {
+    print "error: wrong selection: $tmp\n";
+    exit 1;
+}
+$file = $CONFS[$tmp-1] if( length($tmp) );
 
-# copy files
-if( length($file) ) {
-    # set configuration file
-    my $PATH = '/etc/dsc';
-    system( 'mkdir -p '.$PATH ) if( !(-d $PATH) );
-    system( "cp -f $DIR/etc/$file $PATH" );
-    system( "mv -f $PATH/$file $PATH/dsc.xml" );
-    system( "cp -f $DIR/etc/dsc.xsd $PATH" );
-    # set command script
-    system( "cp -f $DIR/init.d/dsc /etc/init.d" );
-    system( "chkconfig --add dsc" );
-}
-# file not found
-else {
-    print "error: can't find configuration file", $MANUAL ? '' : " for $HOSTNAME", ", execute /opt/dsc/configure manually with key -m\n";
-}
+# set configuration file
+my $PATH = '/etc/dsc';
+system( 'mkdir -p '.$PATH ) if( !(-d $PATH) );
+system( "cp -f $DIR/etc/$ver/$file $PATH" );
+system( "mv -f $PATH/$file $PATH/dsc.xml" );
+system( "cp -f $DIR/etc/dsc.xsd $PATH" );
+# set command script
+system( "cp -f $DIR/init.d/dsc /etc/init.d" );
+system( "chkconfig --add dsc" );

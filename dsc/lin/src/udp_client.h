@@ -19,6 +19,7 @@ class UDPClient : public QThread
 	Q_OBJECT
 public:
 	UDPClient( QObject *, XMLConfig * );
+	~UDPClient();
 	void sendQuery( pQuery, QHostAddress, unsigned int );
 	inline void stop() { m_bStop = true; }
 	//! устанавливает указатель на глобальный "массив" данных
@@ -26,6 +27,7 @@ public:
 private slots:
 	void processPendingDatagrams();
 	void gatherVars();
+	void gatherHard();
 	void testChanels();
 protected:
 	void run();
@@ -42,7 +44,7 @@ private:
 private:
 	QObject * m_pParent;
 	uint m_uiCId;
-	QMap<uint, CUDPServerInfo> m_mapHosts;
+	QMap<uint, CUDPServerInfo*> m_mapHosts;
 	QUdpSocket *m_udpTSocket, *m_udpRSocket;
 	uint m_uiRPort;
 	uchar rnd;
@@ -55,6 +57,18 @@ private:
 	unsigned int m_uiId;
 	/*! \brief указатель на глобальный "массив" данных (объектов CParameter*) */
 	static QMap<ulong, CParameter*> *m_ptrmapParameters;
+	/*! \brief */
+	QMap<uint, CUDPServerInfo*>::iterator current;
+	/*! \brief */
+	uint m_uiMaxClients;
+	/*! \brief */
+	bool m_bContinue;
+	/*! \brief */
+	QList<CUDPServerInfo*> m_listHardQueries;
+	/*! \brief */
+	bool m_bHard;
+	/*! \brief */
+	uint m_uiMaxHardQueries;
 };
 
 #endif

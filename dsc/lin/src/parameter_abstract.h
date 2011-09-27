@@ -111,12 +111,15 @@ public:
 	// *** зависимость параметра
 	//! добавляет параметр, состояние которого зависит от значения данного
 	virtual void		addStatusDepPar	( CParameter * )			= 0;
+	// *** 
 	//! добавляет обобщенный параметр
-	virtual void		addCommonPar	( CParameter *, bool )			= 0;
-	//! 
-	virtual bool		isInvert	()					= 0;
+	virtual void		addCommonPar	( CParameter * )			= 0;
 	//! добавляет параметр от которого зависит обобщенный
 	virtual void		addCommonDepPar	( CParameter * )			= 0;
+	//! 
+	virtual void		setCommonValue	( CParameter *, const QString & )	= 0;
+	//! 
+	virtual QString		getCommonValue	( CParameter * )			= 0;
 	// *** отладка
 	//! запись основных полей параметра в текстовый вид
 	virtual void		print		( QStringList & )			= 0;

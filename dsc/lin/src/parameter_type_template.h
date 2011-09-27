@@ -77,12 +77,15 @@ public:
 	// *** зависимость параметра
 	//! добавляет параметр, состояние которого зависит от значения данного
 		virtual void		addStatusDepPar	( CParameter * );
+	// ***
 	//! добавляет обобщенный параметр
-		virtual void		addCommonPar	( CParameter *, bool );
-	//! 
-	inline	virtual bool		isInvert	() { return m_bInvert; }
+		virtual void		addCommonPar	( CParameter * );
 	//! добавляет параметр от которого зависит обобщенный
 		virtual void		addCommonDepPar	( CParameter * );
+	//!
+		virtual void		setCommonValue	( CParameter *pPar, const QString &str ) { m_mapCommonValues[pPar] = str; }
+	//!
+		virtual QString		getCommonValue	( CParameter *pPar ) { return m_mapCommonValues[pPar]; }
 	// *** отладка
 	//! запись основных полей параметра в текстовый вид
 		virtual	void		print		( QStringList & );
@@ -103,12 +106,13 @@ private:
 	T				  m_typeValue;			 //! значение параметра
 	EParStatus			  m_eStatus;			 //! состояние параметра
 	QMap<uint, bool>		  m_mapSendFlags;
-	
 
 	QList<CParameter*>		  m_qlistStatusDepPars;		 //! параметры, состояние которых зависит от значения данного
 
 	QList<CParameter*>		  m_qlistCommonPars;		 //! обобщенные параметры
 	QList<CParameter*>		  m_qlistCommonDepPars;		 //! параметры от которых зваисит обобщенный параметр
+
+	QMap<CParameter *, QString>	  m_mapCommonValues;
 };
 
 //! конструктор
@@ -174,23 +178,29 @@ template<class T> void CParameterTemplate<T>::update() {
 
 template<> void CParameterTemplate<short>::update() {
 
-	if( m_pParameterInfo->m_pProps->m_sParType == "common" ) {
+	if( m_pParameterInfo->m_pProps->m_sParType == "common" ) { 
 
 		if( status() != CParameter::ePUS_Updated ) setSend();
 
-		ushort usResult = 0;
+		ushort usResult = 0; bool bUnknown = false;
 		for( int i=0;i<m_qlistCommonDepPars.count();i++ ) {
 			if( m_qlistCommonDepPars[i]->status() == CParameter::ePUS_Updated ) {
-				
-				usResult += m_qlistCommonDepPars[i]->isInvert() ? !getValue( m_qlistCommonDepPars[i]->getStringValue() ) :
-						 getValue( m_qlistCommonDepPars[i]->getStringValue() );
+				if( m_qlistCommonDepPars[i]->getStringValue() == m_qlistCommonDepPars[i]->getCommonValue( this ) ) usResult = 0x1;
 			}
+			else 
+				bUnknown = true;
 		}
 
+		if( !usResult && bUnknown ) usResult = 2;
+
 		if( usResult != getValue( getStringValue() ) ) {
+
 			m_typeValue = usResult;
 			setTime( QDateTime::currentDateTime().toUTC() );
 			setSend();
+
+			foreach( CParameter *pPar, m_qlistCommonPars )
+				pPar->update();
 		}
 
 		setStatus( CParameter::ePUS_Updated );
@@ -310,11 +320,9 @@ template<class T> void CParameterTemplate<T>::addStatusDepPar( CParameter *pPar 
 }
 
 //! добавляет обобщенный параметр
-template<class T> void CParameterTemplate<T>::addCommonPar( CParameter *pPar, bool bInvert ) {
+template<class T> void CParameterTemplate<T>::addCommonPar( CParameter *pPar ) {
 
 	m_qlistCommonPars.append( pPar );
-	
-	m_bInvert = bInvert;
 }
 
 //! добавляет параметр от которого зависит обобщенный
@@ -369,4 +377,3 @@ template<> QString CParameterTemplate<QString>::getStringValue( QString value ) 
 }
 
 #endif
-

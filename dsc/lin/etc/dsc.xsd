@@ -241,6 +241,7 @@
     </xs:restriction>
    </xs:simpleType>
   </xs:attribute>
+  <xs:attribute name='value' type='xs:string' default='1' />
   </xs:complexType>
  </xs:element>
 

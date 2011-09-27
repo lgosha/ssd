@@ -7,6 +7,8 @@ sub print_usage {
     print "genarator.pl --project <project_name>", "\n";
 }
 
+my $project = "kln4";
+
 for($i=0;$i<scalar(@ARGV);$i++) {
 
     SWITCH : {
@@ -26,8 +28,6 @@ for($i=0;$i<scalar(@ARGV);$i++) {
 	print_usage();
     }
 }
-
-my $project = "kln4";
 
 my $file = "etc/".$project.".conf";
 

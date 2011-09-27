@@ -239,16 +239,10 @@ int create_parameters() {
 		const DOMNode *pSubNode = pXMLConfig->first( mDelayedCreateParameter[pPar] );
 		while( pSubNode ) {
 			if( pSubNode->getNodeType() == DOMNode::ELEMENT_NODE ) {
-/*
-				if( lCommonParIds.contains( uid ) )
-					throw ex_base	(
-						ex_base::error,
-						QString("common parameter: %1 contains other common parameter: %2").arg(pPar->getStrId()).arg(uid),
-						"main::create_parameters.resolve_depends"
-							);
-*/
+
 				if( qmapParameters.contains( uid ) ) {
-					qmapParameters[uid]->addCommonPar( pPar, pXMLConfig->attr(pSubNode, "invert") == "yes" ? true : false );
+					qmapParameters[uid]->addCommonPar( pPar );
+					qmapParameters[uid]->setCommonValue( pPar, pXMLConfig->isAttr(pSubNode, "value") ? pXMLConfig->attr(pSubNode, "value") : "1" );
 					pPar->addCommonDepPar( qmapParameters[uid] );
 				}
 				else throw ex_base	(

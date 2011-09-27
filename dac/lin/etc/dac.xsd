@@ -92,6 +92,7 @@
    </xs:simpleType>
   </xs:attribute>
   <xs:attribute name='log' type='boolType' use='required'/>
+  <xs:attribute name='wnd' type='boolType' use='required'/>
   </xs:complexType>
  </xs:element>
 

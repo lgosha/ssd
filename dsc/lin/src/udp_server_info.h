@@ -7,10 +7,11 @@
 
 class CUDPServerInfo {
 public:
+
 	struct hAddr {
 		QHostAddress hAddr;
 		uint	uiPort;
-	};
+	} _hAddr;
 
 	/*! \brief состояние сервера
 		\details Состояние сервера в контексте получения ответов на запросы

@@ -58,14 +58,13 @@ rm -rf ${RPM_BUILD_ROOT}
 
 %post
 service snmpd restart
-/opt/dac/configure
 
 %preun
 service snmpd stop
 /sbin/service dac stop > /dev/null 2>/dev/null || :
-/sbin/chkconfig --del dac
 
 %postun
+if [ -f /etc/init.d/dac ]; then /sbin/chkconfig --del dac; fi
 rm -rf /etc/dac
 rm -f /etc/init.d/dac
 rm -rf /opt/dac

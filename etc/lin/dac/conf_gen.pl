@@ -1,29 +1,22 @@
 #!/usr/bin/perl
 
 # template
+my $PROJECT 	= "kln4";
+# template
 my $TEMPLATE 	= "templates/template.XXX101.1";
-# output filename
-my $O_DIR 	= "tmp/kln4";
 # internal device code
 my $CODE	= 110;
 
-sub print_usage {
-
-    print "conf_gen.pl --template filename --code internal --out dir [--help]\n";
-    print "\tfilename\ttemplate filename\n";
-    print "\tinternal\t\tinternal device code\n";
-    exit 0;
-}
-
 for($i=0;$i<scalar(@ARGV);$i++) {
+
+    if($ARGV[$i] eq "--project") {
+	$i++;
+	$PROJECT = $ARGV[$i];
+	next;
+    }
     if($ARGV[$i] eq "--template") {
 	$i++;
 	$TEMPLATE = $ARGV[$i];
-	next;
-    }
-    if($ARGV[$i] eq "--out") {
-	$i++;
-	$O_DIR = $ARGV[$i];
 	next;
     }
     if($ARGV[$i] eq "--code") {
@@ -31,10 +24,10 @@ for($i=0;$i<scalar(@ARGV);$i++) {
 	$CODE = $ARGV[$i];
 	next;
     }
-    if($ARGV[$i] eq "--help" || $ARGV[$i] eq "-h") {
-	print_usage();
-    }
 }
+
+# output filename
+my $O_DIR 	= "tmp/$PROJECT";
 
 open( TEMPL, '<'.$TEMPLATE ) or die "can't open template file $TEMPLATE: $!\n";
 my @TEMP = <TEMPL>; close( TEMPL );
@@ -47,16 +40,26 @@ foreach( @TEMP ) {
 
     $_ =~ s/%CODE/$CODE/g;
 
-    if( $_ =~ /%LINK_PORTS/ ) {
-    	my $cmd = 'perl ./ports_gen.pl --cfg tmp/kln4/sw --code '.$CODE.' --dev '.$DEV;
+    if( $_ =~ /%PORT_LINK/ ) {
+    	my $cmd = 'perl ./sw_link_gen.pl --prj '.$PROJECT.' --code '.$CODE.' --dev '.$DEV;
 	my @TMP = `$cmd`;
 	foreach( @TMP ) {
 		print $_;
 		print OUT $_;
 	}
+	next;
     }
-    else {
-	print $_;
-	print OUT $_;
+
+    if( $_ =~ /%ETH_LINK/ ) {
+    	my $cmd = 'perl ./eth_link_gen.pl --prj '.$PROJECT.' --code '.$CODE.' --dev '.$DEV;
+	my @TMP = `$cmd`;
+	foreach( @TMP ) {
+		print $_;
+		print OUT $_;
+	}
+	next;
     }
+
+    print $_;
+    print OUT $_;
 }

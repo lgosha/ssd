@@ -52,13 +52,12 @@ rm -rf ${RPM_BUILD_ROOT}
 /opt/dsc/configure
 
 %post
-/opt/dsc/configure
 
 %preun
 /sbin/service dsc stop > /dev/null 2>/dev/null || :
-/sbin/chkconfig --del dsc
 
 %postun
+if [ -f /etc/init.d/dsc ]; then /sbin/chkconfig --del dsc; fi
 rm -rf /etc/dsc
 rm -f /etc/init.d/dsc
 rm -rf /opt/dsc
