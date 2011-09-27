@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="WINDOWS-1251"?>
+<config  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation='dsc.xsd' codepage="utf8">
+
+	<!-- директории программы -->
+	<dirs>
+		<dir name="etc" path="etc" />
+		<dir name="log" path="log" />
+		<dir name="tmp" path="tmp" />
+	</dirs>
+
+	<!-- параметры отладки (при использовании) --> 
+	<debug level="8" log="no" />
+
+	<!-- сетевые настройки программы связи с dac (сбор данных) -->
+	<network_c id="001" port_r="3726" port_t="3725" updt="500" lupdt="1000" vupdt="1000" logid="001" />
+	<!-- сетевые настройки программы связи с dgw (передача данных) -->
+	<network_s id="001" port_r="3728" port_t="3727" logid="002" />
+
+	<!-- перечень и настройки источников данных --> 
+	<servers>
+		<server id="002" addr_b="192.168.10.102"  addr_r="192.168.12.102" port="3728" link="yes" caption="" />
+		<server id="101" addr_b="127.0.0.1"  addr_r="127.0.0.1"  caption="" />
+		<server id="102" addr_b="192.168.10.102"  addr_r="192.168.12.102" caption="" />
+	</servers>
+
+	<!-- перечень и настройки клиентов, которые могут получить данные от программы --> 
+	<clients>
+		<client id="002" addr_b="192.168.10.102" addr_r="192.168.12.102" port="3726" caption="40XXX02.dsc" />
+		<client id="901" addr_b="127.0.0.1"      addr_r="127.0.0.1"      caption="client" />
+		<client id="801" addr_b="192.168.10.201" addr_r="192.168.10.201" caption="default.viewer" />
+	</clients>
+	
+	<!-- перечень и настройки потоков логирования --> 
+	<logs>
+		<log id="001" caption="udoclient"/>
+		<log id="002" caption="udpserver"/>
+	</logs>
+	
+	<!-- база сигналов --> 
+	<base>
+	%BASE
+	</base>	
+
+</config>

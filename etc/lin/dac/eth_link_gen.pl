@@ -1,30 +1,21 @@
 #!/usr/bin/perl
 
-# template
-my $TEMPLATE 	= "templates/kln4/template.sw.link";
-# configurq
-my $CFG 	= "tmp/kln4/sw";
+# configure
+my $PROJECT 	= 'kln4';
 # internal device code
 my $CODE	= 110;
 # internal switch code
 my $DEV		= 401;
+# template type
+my $TYPE	= "win";
 
-my $LINK_PAR_DIG_SHIFT = 66;
+my $LINK_PAR_DIG_SHIFT = 18;
 my $LINK_PAR_SYM_SHIFT = 100;
 
-sub print_usage {
-
-    print "conf_gen.pl --cfg filename --code internal --dev template [--help]\n";
-    print "\tfilename\tports configuration filename\n";
-    print "\tinternal\t\tinternal device code\n";
-    print "\ttemplate\t\tdevice template code\n";
-    exit 0;
-}
-
 for($i=0;$i<scalar(@ARGV);$i++) {
-    if($ARGV[$i] eq "--cfg") {
+    if($ARGV[$i] eq "--prj") {
 	$i++;
-	$CFG = $ARGV[$i];
+	$PROJECT = $ARGV[$i];
 	next;
     }
     if($ARGV[$i] eq "--code") {
@@ -37,21 +28,25 @@ for($i=0;$i<scalar(@ARGV);$i++) {
 	$DEV = $ARGV[$i];
 	next;
     }
-    if($ARGV[$i] eq "--help" || $ARGV[$i] eq "-h") {
-	print_usage();
-    }
 }
+
+# configure
+my $CFG  = 'tmp/'.$PROJECT.'/eth';
+
+open( CONF, '<'.$CFG ) or die "can't open eth_link config file $CFG: $!\n";
+my @CFG = <CONF>; close( CONF );
+
+my $TYPE = $CFG[0]; chomp $TYPE;
+my @tmp1 = split( /\s+/, $CFG[1] );
+my @tmp2 = split( /\s+/, $CFG[2] );
+
+# template
+my $TEMPLATE 	= 'templates/'.$PROJECT.'/template.eth.link.'.$TYPE;
 
 open( TEMPL, '<'.$TEMPLATE.'.b' ) or die "can't open template file $TEMPLATE.b: $!\n";
 my @TEMP1 = <TEMPL>; close( TEMPL );
 open( TEMPL, '<'.$TEMPLATE.'.r' ) or die "can't open template file $TEMPLATE.r: $!\n";
 my @TEMP2 = <TEMPL>; close( TEMPL );
-
-open( CONF, '<'.$CFG ) or die "can't open config file $CONF: $!\n";
-my @CFG = <CONF>; close( CONF );
-
-my @tmp1 = split( /\s+/, $CFG[0] );
-my @tmp2 = split( /\s+/, $CFG[1] );
 
 sub replace {
 
@@ -63,12 +58,12 @@ sub replace {
 	$line =~ s/%DEV/$DEV/;
 	$line =~ s/%OID/$port/;
 	my $par1 = sprintf("%03d", $count + $LINK_PAR_DIG_SHIFT);
-	my $par2 = sprintf("%03d", $count + $LINK_PAR_DIG_SHIFT + $LINK_PAR_SYM_SHIFT);			
+	my $par2 = sprintf("%03d", $count + $LINK_PAR_DIG_SHIFT + $LINK_PAR_SYM_SHIFT);
 	$line =~ s/%PAR1/$par1/;
 	$line =~ s/%PAR2/$par2/;
 	$count++;
 	$line =~ s/%NUM/$count/;
-	
+
 	print $line;
 }
 
@@ -83,5 +78,5 @@ foreach my $port ( @tmp1 ) {
 		replace( $_, $port, $count ) foreach ( @TEMP1 );
 	}
 
-	$count++;	
+	$count++;
 }

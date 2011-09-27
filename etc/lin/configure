@@ -1,0 +1,63 @@
+#!/usr/bin/perl -w
+
+my $dac = '';
+my $tmp = system("rpm -q dac 1>/dev/null 2>/dev/null"); $dac = '/opt/dac' if( !$tmp );
+my $dsc = '';
+   $tmp = system("rpm -q dsc 1>/dev/null 2>/dev/null"); $dsc = '/opt/dsc' if( !$tmp );
+
+print "Select component:\n";
+print "1. dac"."\n";
+print "2. dsc"."\n";
+print "3. all"."\n";
+$in = <STDIN>; chomp $in;
+if( $in < 1 || $in > 3 ) {
+    print "error: wrong selection: $file\n";
+    exit 1;
+}
+
+if( $in == 1 || $in == 3 ) {
+
+    print "Input path for install dac configuration [$dac]: ";
+    $tmp = <STDIN>; chomp $tmp;
+    if( !length($tmp) ) {
+	if( !length($dac) ) { print "error: no path for dac configuration install\n"; exit 1; }
+    }
+    else {
+	$dac = $tmp if( length($tmp) );
+    }
+}
+
+if( $in == 2 || $in == 3 ) {
+
+    print "Input path for install dsc configuration [$dsc]: ";
+    $tmp = <STDIN>; chomp $tmp;
+    if( !length($tmp) ) {
+	if( !length($dsc) ) { print "error: no path for dsc configuration install\n"; exit 1; }
+    }
+    else {
+	$dsc = $tmp if( length($tmp) );
+    }
+}
+
+$version = '';
+$version = `cat version` if( -f "version" );
+print "Input configuration version [$version]: ";
+$tmp = <STDIN>; chomp $tmp;
+if( !length($tmp) ) {
+    if( !length($version) ) { print "error: no configuration version\n"; exit 1; }
+}
+else {
+    $version = $tmp if( length($tmp) );
+}
+
+if( $in == 1 || $in == 3 ) {
+    system("mkdir -p $dac/etc/$version");
+    system("cp -rf dac/conf/* $dac/etc/$version");
+    system("$dac/configure");
+}
+
+if( $in == 2 || $in == 3 ) {
+    system("mkdir -p $dsc/etc/$version");
+    system("cp -rf dsc/conf/* $dsc/etc/$version");
+    system("$dsc/configure");
+}
