@@ -11,7 +11,7 @@ print "2. dsc"."\n";
 print "3. all"."\n";
 $in = <STDIN>; chomp $in;
 if( $in < 1 || $in > 3 ) {
-    print "error: wrong selection: $file\n";
+    print "error: wrong selection: $in\n";
     exit 1;
 }
 

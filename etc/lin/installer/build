@@ -1,0 +1,36 @@
+#!/usr/bin/perl -w
+
+$PACKAGE = "ssd_conf";
+
+@PRJ = `cat version`;
+
+print "Select project:\n";
+for( my $i=0;$i<scalar(@PRJ);$i++ ) {
+    my $tmp = $PRJ[$i]; chomp $tmp;  $tmp =~ s/:.*//;
+    print sprintf( "%d", $i+1 ), '. ', $tmp, "\n";
+}
+my $tmp = <STDIN>; chomp $tmp;
+if( $tmp < 1 || $tmp > scalar(@PRJ)  ) {
+    print "error: wrong selection: $tmp\n";
+    exit 1;
+}
+$tmp = $PRJ[$tmp-1]; chomp $tmp;
+
+$PROJECT = $tmp; $PROJECT =~ s/:.*//;
+$VERSION = $tmp; $VERSION =~ s/.*:\s+//;
+
+$DIR = $PACKAGE.'.'.$PROJECT.'.'.$VERSION;
+
+system( "mkdir -p \"$DIR\"" );
+system( "mkdir -p \".\/$DIR\/dac\/conf\"" );
+system( "mkdir -p \".\/$DIR\/dsc\/conf\"" );
+
+system("cp -f ..\/dac\/conf\/$PROJECT\/* \"$DIR\/dac\/conf\"" );
+system("cp -f ..\/dsc\/conf\/$PROJECT\/* \"$DIR\/dsc\/conf\"" );
+system("cp -f ..\/configure $DIR" );
+
+system( "echo $VERSION > $DIR\/version" );
+
+system( "tar cf - \"$DIR\" | bzip2 -f > \"$PACKAGE.$PROJECT.$VERSION.tar.bz2\"" );
+
+system( "rm -rf \"$DIR\"" );
