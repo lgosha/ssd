@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="WINDOWS-1251"?>
+<config codepage="cp1251">
+
+	<proc name="dac">
+		
+		<cmds>
+			<cmd name="start" app="sc">
+				<arg name="start" />
+				<arg name="dac" />
+			</cmd>
+			<cmd name="stop" app="sc">
+				<arg name="stop" />
+				<arg name="dac" />
+			</cmd>
+			<cmd name="status" app="tasklist" />
+			<cmd name="config" app="sc">
+				<arg name="qc" />
+				<arg name="dac" />
+			</cmd>
+			<cmd name="delete" app="%DIR%\bin\dac.exe">
+				<arg name="-u" />
+			</cmd>
+			<cmd name="create" app="%DIR%\bin\dac.exe">
+				<arg name="-i" />
+				<arg name="%DIR%" />
+				<arg name="%CFG%" />
+			</cmd>
+		</cmds>
+	</proc>
+
+	<proc name="dsc" path="C:\dsc">
+		<cmds>
+			<cmd name="start" app="%DIR%\dsc.start.bat" ignore="3" />
+			<cmd name="stop" app="%DIR%\dsc.stop.bat" />
+			<cmd name="status" app="tasklist" />
+			<cmd name="config" app="cmd">
+				<arg name="/c" />
+				<arg name="type" />
+				<arg name="%DIR%\dsc.start.bat" />
+			</cmd>
+			<cmd name="create" app="cmd">
+				<arg name="/c" />
+				<arg name="echo" />
+				<arg name="%DIR%\bin\dsc.exe" />
+				<arg name="/detach" />
+				<arg name="--directory" />
+				<arg name="%DIR%" />
+				<arg name="--config" />
+				<arg name="%DIR%\etc\%CFG%" />
+				<arg name="&gt;" />
+				<arg name="%DIR%\dsc.start.bat" />
+			</cmd>
+			<cmd name="delete" app="cmd" >
+				<arg name="/c" />
+				<arg name="del" />
+				<arg name="%DIR%\dsc.start.bat" />
+				<arg name="/f" />
+			</cmd>
+		</cmds>
+	</proc>
+
+</config>

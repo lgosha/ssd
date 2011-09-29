@@ -1,0 +1,224 @@
+<ui version="4.0" >
+ <class>ctrlClass</class>
+ <widget class="QMainWindow" name="ctrlClass" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>528</width>
+    <height>311</height>
+   </rect>
+  </property>
+  <property name="sizePolicy" >
+   <sizepolicy vsizetype="Fixed" hsizetype="Fixed" >
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="windowTitle" >
+   <string>ctrl</string>
+  </property>
+  <widget class="QWidget" name="centralWidget" >
+   <widget class="QGroupBox" name="groupBox" >
+    <property name="geometry" >
+     <rect>
+      <x>10</x>
+      <y>70</y>
+      <width>141</width>
+      <height>151</height>
+     </rect>
+    </property>
+    <property name="title" >
+     <string>Control</string>
+    </property>
+    <widget class="QPushButton" name="m_pStart_button" >
+     <property name="geometry" >
+      <rect>
+       <x>20</x>
+       <y>30</y>
+       <width>75</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text" >
+      <string>Start</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="m_pStop_button" >
+     <property name="geometry" >
+      <rect>
+       <x>20</x>
+       <y>70</y>
+       <width>75</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text" >
+      <string>Stop</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="m_pRestart_button" >
+     <property name="geometry" >
+      <rect>
+       <x>20</x>
+       <y>110</y>
+       <width>75</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text" >
+      <string>Restart</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QGroupBox" name="groupBox_2" >
+    <property name="geometry" >
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>501</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="title" >
+     <string>Status</string>
+    </property>
+    <widget class="QComboBox" name="m_pApp_combo" >
+     <property name="geometry" >
+      <rect>
+       <x>10</x>
+       <y>20</y>
+       <width>101</width>
+       <height>21</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLabel" name="m_pAppStatus_label" >
+     <property name="geometry" >
+      <rect>
+       <x>130</x>
+       <y>20</y>
+       <width>421</width>
+       <height>16</height>
+      </rect>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QGroupBox" name="groupBox_3" >
+    <property name="geometry" >
+     <rect>
+      <x>160</x>
+      <y>70</y>
+      <width>351</width>
+      <height>151</height>
+     </rect>
+    </property>
+    <property name="title" >
+     <string>Configuration</string>
+    </property>
+    <widget class="QComboBox" name="m_pVersion_combo" >
+     <property name="geometry" >
+      <rect>
+       <x>10</x>
+       <y>40</y>
+       <width>161</width>
+       <height>22</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_2" >
+     <property name="geometry" >
+      <rect>
+       <x>10</x>
+       <y>20</y>
+       <width>46</width>
+       <height>14</height>
+      </rect>
+     </property>
+     <property name="text" >
+      <string>Version</string>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="m_pFile_combo" >
+     <property name="geometry" >
+      <rect>
+       <x>180</x>
+       <y>40</y>
+       <width>161</width>
+       <height>22</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_3" >
+     <property name="geometry" >
+      <rect>
+       <x>190</x>
+       <y>20</y>
+       <width>46</width>
+       <height>14</height>
+      </rect>
+     </property>
+     <property name="text" >
+      <string>File</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="m_pChange_button" >
+     <property name="geometry" >
+      <rect>
+       <x>10</x>
+       <y>120</y>
+       <width>161</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text" >
+      <string>Change</string>
+     </property>
+     <property name="checkable" >
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="m_pApply_button" >
+     <property name="geometry" >
+      <rect>
+       <x>180</x>
+       <y>120</y>
+       <width>161</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text" >
+      <string>Apply</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="m_pAdvanced_button" >
+     <property name="geometry" >
+      <rect>
+       <x>180</x>
+       <y>90</y>
+       <width>161</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text" >
+      <string>Advanced</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QTextBrowser" name="m_pStatus_text" >
+    <property name="geometry" >
+     <rect>
+      <x>10</x>
+      <y>230</y>
+      <width>501</width>
+      <height>62</height>
+     </rect>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QStatusBar" name="statusBar" />
+ </widget>
+ <layoutdefault spacing="6" margin="11" />
+ <resources/>
+ <connections/>
+</ui>
