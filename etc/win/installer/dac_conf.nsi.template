@@ -1,0 +1,53 @@
+
+; include modern UI
+  !include "MUI2.nsh"
+
+; set program name
+  Name "dac_conf"
+; set installer outfile name
+  OutFile "dac_conf-%PROJECT-%VERSION.exe"
+; enable XP style
+  XPStyle on
+; set installation directory
+  InstallDir "C:\dac\etc"
+
+; interface settings
+  !define MUI_ABORTWARNING
+
+; declare pages
+  !insertmacro MUI_PAGE_WELCOME
+  !insertmacro MUI_PAGE_DIRECTORY 
+  !insertmacro MUI_PAGE_COMPONENTS
+
+  !insertmacro MUI_PAGE_INSTFILES
+     
+  !insertmacro MUI_UNPAGE_CONFIRM
+  !insertmacro MUI_UNPAGE_INSTFILES
+
+; set language
+  !insertmacro MUI_LANGUAGE "Russian"
+
+; ***  ------------------------------------------------------------------------------------------ ***
+; install sections
+
+; *** base files section ***
+  Section "%VERSION" base
+; set section as required
+	SectionIn RO
+; set base files
+	SetOutPath "$INSTDIR\%VERSION"
+	File "tmp\dac\conf\*.*"
+  SectionEnd
+
+; *** ------------------------------------------------------------------------------------------ ***
+; functions
+
+; function call then install start (befor first gui)  
+Function .onInit
+	ReadRegStr $1 HKLM Software\dac ""
+	StrLen $2 $1
+	${If} $2 != 0
+		StrCpy $INSTDIR $1\etc
+	${EndIf}
+FunctionEnd
+  
