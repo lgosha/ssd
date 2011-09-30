@@ -80,6 +80,7 @@ private:
 	void updateEnable( );
 
 private slots:
+	void on_m_pClose_button_clicked();
 	void on_m_pVersion_combo_currentIndexChanged(int);
 	void on_m_pApply_button_clicked();
 	void on_m_pApp_combo_currentIndexChanged(int);

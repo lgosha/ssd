@@ -105,7 +105,7 @@ QString ctrl::stateToText( uint state ) {
 }
 
 ctrl::ctrl( XMLConfig *pXMLConfig, QWidget *parent, Qt::WFlags flags ) :
-	QMainWindow		( parent, Qt::Dialog ),
+	QMainWindow		( parent, Qt::Window | Qt::WindowTitleHint ),
 	m_pCmdExecutor	( new CCommand( pXMLConfig, this ) )
 {
 	m_Vars["%DIR%"] = QString::null;
@@ -126,7 +126,7 @@ ctrl::ctrl( XMLConfig *pXMLConfig, QWidget *parent, Qt::WFlags flags ) :
 
 	ui.setupUi(this);
 
-	setFixedSize( 520, 312 );
+	setFixedSize( 520, 365 );
 	setWindowTitle( tr(" controller") );
 
 	ui.m_pApp_combo->addItem( "dac" );
@@ -262,7 +262,6 @@ void ctrl::on_m_pChange_button_toggled( bool state )
 	ui.m_pVersion_combo->setEnabled( state );
 	ui.m_pFile_combo->setEnabled( state );
 	ui.m_pApply_button->setEnabled( state );
-	ui.m_pAdvanced_button->setEnabled( state );
 
 	ui.m_pApp_combo->setEnabled( !state );
 	ui.groupBox->setEnabled( !state );
@@ -340,4 +339,10 @@ void ctrl::on_m_pApply_button_clicked()
 	m_pTimer->start( 2000 );
 
 	ui.m_pChange_button->toggle();
+}
+
+
+void ctrl::on_m_pClose_button_clicked()
+{
+	QApplication::quit();
 }
