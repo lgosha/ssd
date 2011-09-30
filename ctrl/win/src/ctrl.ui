@@ -6,7 +6,7 @@
     <x>0</x>
     <y>0</y>
     <width>528</width>
-    <height>364</height>
+    <height>281</height>
    </rect>
   </property>
   <property name="sizePolicy" >
@@ -152,7 +152,7 @@
     <widget class="QLabel" name="label_3" >
      <property name="geometry" >
       <rect>
-       <x>190</x>
+       <x>180</x>
        <y>20</y>
        <width>46</width>
        <height>14</height>
@@ -192,43 +192,14 @@
      </property>
     </widget>
    </widget>
-   <widget class="QTextBrowser" name="m_pStatus_text" >
-    <property name="geometry" >
-     <rect>
-      <x>10</x>
-      <y>250</y>
-      <width>501</width>
-      <height>62</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="m_pClose_button" >
-    <property name="geometry" >
-     <rect>
-      <x>10</x>
-      <y>320</y>
-      <width>501</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="text" >
-     <string>Close</string>
-    </property>
-    <property name="checkable" >
-     <bool>true</bool>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label" >
+   <widget class="QLabel" name="m_pStatus_label" >
     <property name="geometry" >
      <rect>
       <x>20</x>
       <y>230</y>
-      <width>46</width>
-      <height>14</height>
+      <width>491</width>
+      <height>31</height>
      </rect>
-    </property>
-    <property name="text" >
-     <string>Message</string>
     </property>
    </widget>
   </widget>

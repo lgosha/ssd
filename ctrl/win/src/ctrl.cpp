@@ -105,7 +105,7 @@ QString ctrl::stateToText( uint state ) {
 }
 
 ctrl::ctrl( XMLConfig *pXMLConfig, QWidget *parent, Qt::WFlags flags ) :
-	QMainWindow		( parent, Qt::Window | Qt::WindowTitleHint ),
+	QMainWindow		( parent, Qt::Dialog ),
 	m_pCmdExecutor	( new CCommand( pXMLConfig, this ) )
 {
 	m_Vars["%DIR%"] = QString::null;
@@ -126,7 +126,7 @@ ctrl::ctrl( XMLConfig *pXMLConfig, QWidget *parent, Qt::WFlags flags ) :
 
 	ui.setupUi(this);
 
-	setFixedSize( 520, 365 );
+	setFixedSize( 520, 280 );
 	setWindowTitle( tr(" controller") );
 
 	ui.m_pApp_combo->addItem( "dac" );
@@ -212,21 +212,21 @@ void ctrl::updateEnable() {
 
 void ctrl::on_m_pStart_button_clicked()
 {
-	ui.m_pStatus_text->setText( "" );
+	ui.m_pStatus_label->setText( "" );
 	reportExecError( m_pCmdExecutor->exec( ui.m_pApp_combo->itemText( ui.m_pApp_combo->currentIndex() ), "start", m_Vars ) );
 }
 
 void ctrl::on_m_pStop_button_clicked()
 {
-	ui.m_pStatus_text->setText( "" );
+	ui.m_pStatus_label->setText( "" );
 	reportExecError( m_pCmdExecutor->exec( ui.m_pApp_combo->itemText( ui.m_pApp_combo->currentIndex() ), "stop", m_Vars ) );
 }
 
 void ctrl::on_m_pRestart_button_clicked()
 {
-	ui.m_pStatus_text->setText( "" );
+	ui.m_pStatus_label->setText( "" );
 	on_m_pStop_button_clicked();
-	ui.m_pStatus_text->setText( "" );
+	ui.m_pStatus_label->setText( "" );
 	on_m_pStart_button_clicked();
 }
 
@@ -235,26 +235,35 @@ void ctrl::reportExecError( int err ) {
 	QStringList lstr;
 	switch( err ) {
 	case 1: {
-		ui.m_pStatus_text->setText( QString("Unknown command: %1").arg(m_pCmdExecutor->last()) );
+		ui.m_pStatus_label->setText( QString("Unknown command: %1").arg(m_pCmdExecutor->last()) );
 	}
 	break;
 	case 2: {
-		ui.m_pStatus_text->setText( QString("Failed to start command: %1").arg(m_pCmdExecutor->last()) );
+		ui.m_pStatus_label->setText( QString("Failed to start command: %1").arg(m_pCmdExecutor->last()) );
 	}
 	break;
 	case 3: {
-		ui.m_pStatus_text->setText( QString("Command not finished: %1").arg(m_pCmdExecutor->last()) );
+		ui.m_pStatus_label->setText( QString("Command not finished: %1").arg(m_pCmdExecutor->last()) );
 	}
 	break;		
 	case 4: {
-		ui.m_pStatus_text->setText( QString("Command: %1 finished with errors:\n").arg(m_pCmdExecutor->last()) );
-		lstr = QString( m_pCmdExecutor->getStdout() ).split("\n");
-		foreach( QString str, lstr )
-			ui.m_pStatus_text->append( str );
-		ui.m_pStatus_text->moveCursor( QTextCursor::Start );
+		ui.m_pStatus_label->setText	( 
+			QString("Command: %1 finished with errors:\n%2")
+				.arg(m_pCmdExecutor->last())
+				.arg(showMessage(QString( m_pCmdExecutor->getStdout() ).split("\n")))
+									);
 	}
 	break;		
 	}
+}
+
+QString ctrl::showMessage( const QStringList &lstr ) {
+
+	QString sRes = QString::null;
+	foreach( QString str, lstr )
+		if( !str.isEmpty() ) sRes += str;
+
+	return sRes;
 }
 
 void ctrl::on_m_pChange_button_toggled( bool state )
@@ -298,7 +307,7 @@ void ctrl::on_m_pVersion_combo_currentIndexChanged(int)
 void ctrl::on_m_pApp_combo_currentIndexChanged(int)
 {
 	ui.m_pAppStatus_label->setText( "" );
-	ui.m_pStatus_text->setText( "" );
+	ui.m_pStatus_label->setText( "" );
 
 	if( m_mEnv[ui.m_pApp_combo->itemText( ui.m_pApp_combo->currentIndex() )].contains("%DIR%") )
 		m_Vars["%DIR%"] = m_mEnv[ui.m_pApp_combo->itemText( ui.m_pApp_combo->currentIndex() )]["%DIR%"];
@@ -310,7 +319,7 @@ void ctrl::on_m_pApp_combo_currentIndexChanged(int)
 
 void ctrl::on_m_pApply_button_clicked()
 {
-	ui.m_pStatus_text->setText( "" );
+	ui.m_pStatus_label->setText( "" );
 
 	m_pTimer->stop();
 

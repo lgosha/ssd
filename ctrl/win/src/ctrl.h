@@ -78,6 +78,7 @@ private:
 
 	void reportExecError( int );
 	void updateEnable( );
+	QString showMessage( const QStringList & );
 
 private slots:
 	void on_m_pClose_button_clicked();
