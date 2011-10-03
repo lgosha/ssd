@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="WINDOWS-1251"?>
+<config codepage="cp1251">
+
+	<proc name="dac" path="/opt/dac" config="/etc/dac/dac.xml" >
+		<cmds>
+			<cmd name="status" app="ps">
+				<arg name="-ef" />
+			</cmd>
+			<cmd name="config" app="cat">
+				<arg name="/etc/init.d/dac" />
+			</cmd>
+			<cmd name="start" app="service">
+				<arg name="dac" />
+				<arg name="start" />
+			</cmd>
+			<cmd name="stop" app="service">
+				<arg name="dac" />
+				<arg name="stop" />
+			</cmd>
+			<cmd name="create" app="%DIR%/configure">
+				<arg name="--file" />
+				<arg name="%CFG%" />
+			</cmd>
+		</cmds>
+	</proc>
+
+	<proc name="dsc" path="/opt/dsc" config="/etc/dsc/dsc.xml">
+		<cmds>
+			<cmd name="status" app="ps">
+				<arg name="-ef" />
+			</cmd>
+			<cmd name="config" app="cat">
+				<arg name="/etc/init.d/dsc" />
+			</cmd>
+			<cmd name="start" app="service">
+				<arg name="dsc" />
+				<arg name="start" />
+			</cmd>
+			<cmd name="stop" app="service">
+				<arg name="dsc" />
+				<arg name="stop" />
+			</cmd>
+			<cmd name="create" app="%DIR%/configure">
+				<arg name="--file" />
+				<arg name="%CFG%" />
+			</cmd>
+		</cmds>
+	</proc>
+
+</config>
