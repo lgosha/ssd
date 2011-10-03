@@ -1,0 +1,97 @@
+#!/bin/sh
+# /etc/init.d/dsc
+# System startup script for service dsc
+
+# processname: dsc
+
+### BEGIN INIT INFO
+# Provides:          dsc
+# Required-Start:
+# Should-Start:
+# Required-Stop:
+# Should-Stop:
+# Default-Start:     2 3 5
+# Default-Stop:
+# Short-Description: shws diagnostic common comoponent
+# Description:       provide receive diagnostic information from dac
+#                    and send information to gate
+### END INIT INFO
+
+RETVAL=0
+
+. /etc/init.d/functions
+
+DIR=$2 CONF=$3
+[ -z $DIR ] && DIR="/opt/dsc"
+[ -z $CONF ] && CONF="%CFG%"
+BIN=$DIR/bin/dsc
+test -x $BIN || exit 1
+
+start() {
+    echo -n "Starting dsc : "
+    if [ ! -f /var/lock/subsys/dsc ]; then
+	daemon $BIN --directory $DIR --config $CONF --daemon
+	echo
+	RETVAL=$?
+	[ $RETVAL -eq 0 ] && touch /var/lock/subsys/dsc
+    else
+	echo -n " always running..."
+	echo_failure
+	echo
+    fi
+}
+
+stop() {
+    echo -n "Stopping dsc : "
+    if [ -f /var/lock/subsys/dsc ]; then
+        killproc $BIN -TERM
+        echo
+        RETVAL=$?
+        [ $RETVAL -eq 0 ] && rm -f /var/lock/subsys/dsc
+    else
+	echo -n " not running..."
+	echo_failure    
+	echo
+    fi
+}
+
+restart() {
+    echo -n "Stopping dsc : "
+    if [ -f /var/lock/subsys/dsc ]; then
+        killproc $BIN -TERM
+        RETVAL=$?
+        [ $RETVAL -eq 0 ] && rm -f /var/lock/subsys/dsc
+        echo
+    else
+	echo -n " not running..."
+	echo_failure    
+	echo
+    fi
+
+    echo -n "Starting dsc : "
+    daemon $BIN --directory $DIR --config $CONF --daemon
+    echo
+    RETVAL=$?
+    [ $RETVAL -eq 0 ] && touch /var/lock/subsys/dsc
+}
+
+
+case "$1" in
+    start)
+	start
+	;;
+    stop)
+	stop
+	;;
+    restart)
+	restart
+	;;
+    status)
+	status dsc
+        ;;
+    *)
+	gprintf "Usage: %s {start|stop|status|restart}\n" "$0"
+	exit 1
+esac
+
+exit $?
