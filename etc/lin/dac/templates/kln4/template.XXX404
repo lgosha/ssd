@@ -225,4 +225,4 @@
 			<rule key="3" value="1" />
 		</snmp>
 		
-		%LINK_PORTS
+		%PORT_LINK

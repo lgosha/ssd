@@ -211,4 +211,4 @@
 			<rule key="1" value="отключен"  />
 		</calc>
 
-		%LINK_PORTS
+		%PORT_LINK

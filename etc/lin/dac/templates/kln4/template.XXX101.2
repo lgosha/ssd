@@ -218,89 +218,7 @@
 			<rule key="0" value="включен" />
 		</calc>
 
-		<!-- %CODE101018 состояние связи сетевого интерфейса 1 числ. -->
-		<snmp		id	= "%CODE101018" 
-				ptype	= "value"
-				vtype   = "int"
-				rexp    = ".*\s+"
-				addr    = ".1.3.6.1.4.1.343.2.7.2.2.2.1.1.2.8" 
-				fval	= "1"
-				sdep    = "%CODE101001"
-				update  = "5000" >
-		</snmp>
-
-		<!-- %CODE101118 состояние связи сетевого интерфейса 1 симв. -->
-		<calc	 	id     = "%CODE101118" 
-				ptype  = "value"
-				vtype  = "string"
-				math   = ",%CODE101018">
-
-			<rule key="1" value="нет"  />
-			<rule key="0" value="есть" />
-		</calc>
-
-		<!-- %CODE101019 состояние связи сетевого интерфейса 2 числ. -->
-		<snmp		id	= "%CODE101019" 
-				ptype	= "value"
-				vtype   = "int"
-				rexp    = ".*\s+"
-				addr    = ".1.3.6.1.4.1.343.2.7.2.2.2.1.1.2.10" 
-				fval	= "1"
-				sdep    = "%CODE101001"
-				update  = "5000" >
-		</snmp>
-
-		<!-- %CODE101119 состояние связи сетевого интерфейса 2 симв. -->
-		<calc	 	id     = "%CODE101119" 
-				ptype  = "value"
-				vtype  = "string"
-				math   = ",%CODE101019">
-
-			<rule key="1" value="нет"  />
-			<rule key="0" value="есть" />
-		</calc>
-
-		<!-- %CODE101020 состояние связи сетевого интерфейса 3 числ. -->
-		<snmp		id	= "%CODE101020" 
-				ptype	= "value"
-				vtype   = "int"
-				rexp    = ".*\s+"
-				addr    = ".1.3.6.1.4.1.343.2.7.2.2.2.1.1.2.12" 
-				fval	= "1"
-				sdep    = "%CODE101001"
-				update  = "5000" >
-		</snmp>
-		
-		<!-- %CODE101120 состояние связи сетевого интерфейса 3 симв. -->
-		<calc	 	id     = "%CODE101120" 
-				ptype  = "value"
-				vtype  = "string"
-				math   = ",%CODE101020">
-
-			<rule key="1" value="нет"  />
-			<rule key="0" value="есть" />
-		</calc>	
-
-		<!-- %CODE101021 состояние связи сетевого интерфейса 4 числ. -->
-		<snmp		id	= "%CODE101021" 
-				ptype	= "value"
-				vtype   = "int"
-				rexp    = ".*\s+"
-				addr    = ".1.3.6.1.4.1.343.2.7.2.2.2.1.1.2.14" 
-				fval	= "1"
-				sdep    = "%CODE101001"
-				update  = "5000" >
-		</snmp>
-
-		<!-- %CODE101121 состояние связи сетевого интерфейса 4 симв. -->
-		<calc	 	id     = "%CODE101121" 
-				ptype  = "value"
-				vtype  = "string"
-				math   = ",%CODE101021">
-
-			<rule key="1" value="нет"  />
-			<rule key="0" value="есть" />
-		</calc>	
+		%ETH_LINK
 
 		<!-- %CODE101028 источник временной синхронизации -->
 		<snmp		id     = "%CODE101028"
@@ -349,7 +267,7 @@
 			<rule key="0" value="4" />
 		</snmp>
 
-		<!-- %CODE101508 состояние службы ведения времени симв. -->
+		<!-- %CODE101509 состояние службы ведения времени симв. -->
 		<calc		id     = "%CODE101509"
 				ptype  = "value"
 				vtype  = "string"

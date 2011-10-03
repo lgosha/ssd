@@ -26,10 +26,10 @@
 				math    = ",%CODE201102" >
 
 			<rule key="3" value="0" />
-			<rule key="1" value="2" />
-			<rule key="2" value="2" />
-			<rule key="4" value="1" />
-			<rule key="5" value="1" />
+			<rule key="1" value="1" />
+			<rule key="2" value="1" />
+			<rule key="4" value="0" />
+			<rule key="5" value="2" />
 			<rule key="6" value="1" />
 			<rule key="7" value="1" />
 		</calc>
@@ -41,15 +41,15 @@
 				math    = ",%CODE201102" >
 
 			<rule key="3" value="0" />
-			<rule key="1" value="1" />
-			<rule key="2" value="1" />
+			<rule key="1" value="0" />
+			<rule key="2" value="0" />
 			<rule key="4" value="0" />
-			<rule key="5" value="0" />
+			<rule key="5" value="1" />
 			<rule key="6" value="0" />
 			<rule key="7" value="0" />
 		</calc>
 
-		<!-- %CODE201002 состояние числ. -->
+		<!-- %CODE201102 состояние числ. -->
 		<snmp		id	= "%CODE201102" 
 				ptype	= "value"
 				vtype   = "int"
@@ -66,11 +66,11 @@
 				vtype  = "string"
 				math   = ",%CODE201102">
 
-			<rule key="1" value="другой" />
-			<rule key="2" value="нет" />
+			<rule key="1" value="зарядка" />
+			<rule key="2" value="батарея" />
 			<rule key="3" value="норма" />
-			<rule key="4" value="обходной" />
-			<rule key="5" value="батарея" />
+			<rule key="4" value="норма" />
+			<rule key="5" value="нет" />
 			<rule key="6" value="комп. пониж." />
 			<rule key="7" value="комп. повыш." />
 		</calc>
@@ -126,7 +126,7 @@
 		<snmp		id	= "%CODE201005" 
 				ptype	= "value"
 				vtype   = "int"
-				addr    = ".1.3.6.1.4.1.534.1.4.4.1.2.1" 
+				addr    = ".1.3.6.1.4.1.534.1.5.3.1.2.1" 
 				rexp    = ".*\s+"
 				sdep    = "%CODE201001"
 				update  = "60000" >
@@ -139,14 +139,15 @@
 				math   = ",%CODE201005">
 
 			<logic opCompare="&gt;" val="242" opLogic="||" />
-			<logic opCompare="&lt;" val="195" />
+			<logic opCompare="&lt;" val="195" opLogic="&amp;&amp;" />
+			<logic opCompare="&gt;" val="0" />
 		</calc>
 
 		<!-- %CODE201006 частота входного напряжения, Гц -->
 		<snmp		id	= "%CODE201006" 
 				ptype	= "value"
 				vtype   = "double"
-				addr    = ".1.3.6.1.4.1.534.1.4.2.0" 
+				addr    = ".1.3.6.1.4.1.534.1.5.1.0" 
 				rexp    = ".*\s+"
 				math    = "/ ;10"
 				sdep    = "%CODE201001"
@@ -160,14 +161,15 @@
 				math   = ",%CODE201006">
 
 			<logic opCompare="&gt;" val="51" opLogic="||" />
-			<logic opCompare="&lt;" val="47" />
+			<logic opCompare="&lt;" val="47" opLogic="&amp;&amp;"/>
+			<logic opCompare="&gt;" val="0" />
 		</calc>
 
 		<!-- %CODE201007 выходное напряжение, В -->
 		<snmp		id	= "%CODE201007" 
 				ptype	= "value"
 				vtype   = "int"
-				addr    = ".1.3.6.1.4.1.534.1.5.3.1.2.1" 
+				addr    = ".1.3.6.1.4.1.534.1.4.4.1.2.1" 
 				rexp    = ".*\s+"
 				sdep    = "%CODE201001"
 				update  = "60000" >
@@ -187,7 +189,7 @@
 		<snmp		id	= "%CODE201008" 
 				ptype	= "value"
 				vtype   = "double"
-				addr    = ".1.3.6.1.4.1.534.1.5.1.0" 
+				addr    = ".1.3.6.1.4.1.534.1.4.2.0" 
 				rexp    = ".*\s+"
 				math    = "/ ;10"
 				sdep    = "%CODE201001"
