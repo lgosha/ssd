@@ -29,11 +29,8 @@ rm -rf ${RPM_BUILD_ROOT}
 mkdir -p $RPM_BUILD_ROOT/opt/dac
 mkdir -p $RPM_BUILD_ROOT/opt/dac/{bin,etc,log,init.d}
 cp ./bin/dac $RPM_BUILD_ROOT/opt/dac/bin
-cp ./etc/* $RPM_BUILD_ROOT/opt/dac/etc
 cp ./init.d/* $RPM_BUILD_ROOT/opt/dac/init.d
 cp configure $RPM_BUILD_ROOT/opt/dac
-
-mkdir -p $RPM_BUILD_ROOT/{etc,etc/dac/}
 
 mkdir -p $RPM_BUILD_ROOT/usr/share/snmp/plugins
 cp ./plugins/ntpMIB.so $RPM_BUILD_ROOT/usr/share/snmp/plugins
@@ -49,9 +46,7 @@ rm -rf ${RPM_BUILD_ROOT}
 %dir /opt/dac/init.d
 %dir /opt/dac/log
 /opt/dac/bin/*
-/opt/dac/etc/*
 /opt/dac/init.d/*
-%dir /etc/dac
 /opt/dac/configure
 %dir /usr/share/snmp/plugins
 /usr/share/snmp/plugins/ntpMIB.so
@@ -65,7 +60,6 @@ service snmpd stop
 
 %postun
 if [ -f /etc/init.d/dac ]; then /sbin/chkconfig --del dac; fi
-rm -rf /etc/dac
 rm -f /etc/init.d/dac
 rm -rf /opt/dac
 service snmpd start

@@ -33,6 +33,7 @@ my $DIR = "..\/dac\/conf\/$PROJECT";
 opendir( DH, $DIR ) or die "can't open dir $DIR";
 my @FILES = grep { !/^\./ && /\.xml/ } readdir( DH ); closedir( DH );
 copy( "$DIR/$_", 'tmp/dac/conf/'.$_ ) foreach( @FILES );
+copy( '../../../dac/win/etc/dac.xsd', 'tmp/dac/conf/dac.xsd'  );
 
 open( IN, '<'.'dac_conf.nsi.template' ) or die "can't open dac_conf.nsi.template";
 @T = <IN>; close(IN);
@@ -49,6 +50,7 @@ $DIR = "..\/dsc\/conf\/$PROJECT";
 opendir( DH, $DIR ) or die "can't open dir $DIR";
 @FILES = grep { !/^\./ && /\.xml/ } readdir( DH ); closedir( DH );
 copy( "$DIR/$_", 'tmp/dsc/conf/'.$_ ) foreach( @FILES );
+copy( '../../../dsc/win/etc/dsc.xsd', 'tmp/dsc/conf/dsc.xsd'  );
 
 open( IN, '<'.'dsc_conf.nsi.template' ) or die "can't open dsc_conf.nsi.template";
 @T = <IN>; close(IN);

@@ -1,51 +1,72 @@
 #!/usr/bin/perl -w
 
-# detect hostname
-my $HOSTNAME = '';
-$HOSTNAME = `hostname`; chomp $HOSTNAME;
-
-# read configurations
+# directory
 my $DIR = '/opt/dac';
-opendir( DH, $DIR."/etc" ); my @CONFS_VER = grep { !/^\./ && !/\.xsd/ } readdir( DH ); closedir( DH );
-
-print "Select dac configuration version:\n";
-for( my $i=0;$i<scalar(@CONFS_VER);$i++ ) {
-    print sprintf( "%d", $i+1 ), '. ', $CONFS_VER[$i], "\n";
-}
-$ver = <STDIN>; chomp $ver;
-if( $ver < 1 || $ver > scalar(@CONFS_VER)  ) {
-    print "error: wrong selection: $ver\n";
-    exit 1;
-}
-$ver = $CONFS_VER[$ver-1];
-
-# read configuration files set
-opendir( DH, $DIR."/etc/".$ver ); my @CONFS = grep { !/^\./ && /\.xml/ } readdir( DH ); closedir( DH );
-
-# *** detect file
+# file
 my $file = '';
 
-foreach( @CONFS ) {
-    if( $_ =~ /$HOSTNAME/ ) { $file = $_; last; }
-}
-print "Select dac configuration:\n";
-for( my $i=0;$i<scalar(@CONFS);$i++ ) {
-    print sprintf( "%d", $i+1 ), '. ', $CONFS[$i], "\n";
-}
-print "Apply configuration [$file]: ";
-my $tmp = <STDIN>; chomp $tmp;
-if( $tmp < 1 || $tmp > scalar(@CONFS)  ) {
-    print "error: wrong selection: $tmp\n";
-    exit 1;
-}
-$file = $CONFS[$tmp-1] if( length($tmp) );
+for($i=0;$i<scalar(@ARGV);$i++) {
 
-# set configuration file
-my $PATH = '/etc/dac';
-system( 'mkdir -p '.$PATH ) if( !(-d $PATH) );
-system( "cp -f $DIR/etc/$ver/$file $PATH" );
-system( "mv -f $PATH/$file $PATH/dac.xml" );
-system( "cp -f $DIR/etc/dac.xsd $PATH" );
+    if($ARGV[$i] eq "--file") {
+	$i++;
+	$file = $ARGV[$i];
+	next;
+    }
+}
+
+if( !length($file) ) {
+
+    # detect hostname
+    my $HOSTNAME = '';
+    $HOSTNAME = `hostname`; chomp $HOSTNAME;
+
+    # read configurations
+    opendir( DH, $DIR."/etc" ); my @CONFS_VER = grep { !/^\./ && !/\.xsd/ } readdir( DH ); closedir( DH );
+
+    print "Select dac configuration version:\n";
+    for( my $i=0;$i<scalar(@CONFS_VER);$i++ ) {
+        print sprintf( "%d", $i+1 ), '. ', $CONFS_VER[$i], "\n";
+    }
+    $ver = <STDIN>; chomp $ver;
+    if( $ver < 1 || $ver > scalar(@CONFS_VER)  ) {
+        print "error: wrong selection: $ver\n";
+	exit 1;
+    }
+    $ver = $CONFS_VER[$ver-1];
+
+    # read configuration files set
+    opendir( DH, $DIR."/etc/".$ver ); my @CONFS = grep { !/^\./ && /\.xml/ } readdir( DH ); closedir( DH );
+
+
+    foreach( @CONFS ) {
+	if( $_ =~ /$HOSTNAME/ ) { $file = $_; last; }
+    }
+    print "Select dac configuration:\n";
+    for( my $i=0;$i<scalar(@CONFS);$i++ ) {
+        print sprintf( "%d", $i+1 ), '. ', $CONFS[$i], "\n";
+    }
+    print "Apply configuration [$file]: ";
+    my $tmp = <STDIN>; chomp $tmp;
+    if( $tmp < 1 || $tmp > scalar(@CONFS)  ) {
+        print "error: wrong selection: $tmp\n";
+	exit 1;
+    }
+    $file = $CONFS[$tmp-1] if( length($tmp) );
+}
+else {
+	$ver = $file; $ver =~ s/\/.*//;
+	$file =~ s/.*\///;
+}
+
+my $to = $DIR.'/etc/'.$ver.'/'.$file;
+open( IN,  '<'.$DIR.'/init.d/dac.template' ); @CONTENT = <IN>; close(IN);
+open( OUT, '>'.$DIR.'/init.d/dac' );
+foreach( @CONTENT ) {
+	$_ =~ s/%CFG%/$to/;
+	print OUT $_;
+}
+system( "chmod +x ".$DIR.'/init.d/dac' );
+
 # set command script
-system( "cp -f $DIR/init.d/dac /etc/init.d" );
+system( "mv -f $DIR/init.d/dac /etc/init.d" );
 system( "chkconfig --add dac" );

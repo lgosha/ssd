@@ -29,11 +29,8 @@ rm -rf ${RPM_BUILD_ROOT}
 mkdir -p $RPM_BUILD_ROOT/opt/dsc
 mkdir -p $RPM_BUILD_ROOT/opt/dsc/{bin,etc,log,init.d}
 cp ./bin/dsc $RPM_BUILD_ROOT/opt/dsc/bin
-cp ./etc/* $RPM_BUILD_ROOT/opt/dsc/etc
 cp ./init.d/* $RPM_BUILD_ROOT/opt/dsc/init.d
 cp configure $RPM_BUILD_ROOT/opt/dsc
-
-mkdir -p $RPM_BUILD_ROOT/{etc,etc/dsc/}
 
 %clean
 rm -rf ${RPM_BUILD_ROOT}
@@ -46,9 +43,7 @@ rm -rf ${RPM_BUILD_ROOT}
 %dir /opt/dsc/init.d
 %dir /opt/dsc/log
 /opt/dsc/bin/*
-/opt/dsc/etc/*
 /opt/dsc/init.d/*
-%dir /etc/dsc
 /opt/dsc/configure
 
 %post
@@ -58,7 +53,6 @@ rm -rf ${RPM_BUILD_ROOT}
 
 %postun
 if [ -f /etc/init.d/dsc ]; then /sbin/chkconfig --del dsc; fi
-rm -rf /etc/dsc
 rm -f /etc/init.d/dsc
 rm -rf /opt/dsc
 

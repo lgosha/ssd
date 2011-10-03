@@ -19,7 +19,7 @@ $tmp = $PRJ[$tmp-1]; chomp $tmp;
 $PROJECT = $tmp; $PROJECT =~ s/:.*//;
 $VERSION = $tmp; $VERSION =~ s/.*:\s+//;
 
-$DIR = $PACKAGE.'.'.$PROJECT.'.'.$VERSION;
+$DIR = $PACKAGE.'-'.$PROJECT.'-'.$VERSION;
 
 system( "mkdir -p \"$DIR\"" );
 system( "mkdir -p \".\/$DIR\/dac\/conf\"" );
@@ -28,6 +28,8 @@ system( "mkdir -p \".\/$DIR\/dsc\/conf\"" );
 system("cp -f ..\/dac\/conf\/$PROJECT\/* \"$DIR\/dac\/conf\"" );
 system("cp -f ..\/dsc\/conf\/$PROJECT\/* \"$DIR\/dsc\/conf\"" );
 system("cp -f ..\/configure $DIR" );
+system("cp -f ..\/..\/..\/dac/lin/etc/dac.xsd \"$DIR\/dac\/conf\"" );
+system("cp -f ..\/..\/..\/dsc/lin/etc/dsc.xsd \"$DIR\/dsc\/conf\"" );
 
 system( "echo $VERSION > $DIR\/version" );
 
